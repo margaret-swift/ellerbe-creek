@@ -1,5 +1,5 @@
 ---
-title: "Ellerbe Creek Tutorial"
+title: "Ellerbe Creek Cleanup Tutorial"
 author: "Margaret Swift, Jonathan Behrens"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -8,6 +8,9 @@ output:
     df_print: kable
 ---
 
+# Welcome!
+
+Welcome to the Ellerbe Creek Cleanup Tutorial! To download this file and follow along, head over to our [GitHub page](https://github.com/margaret-swift/ellerbe-creek)
 
 # SECTION 01: WORKFLOW
 
@@ -17,7 +20,7 @@ First, you need to set up your environment. This involves installing and loading
 
 ```{r load libraries}
 
-library(tidyverse)
+pacman::p_load(tidyverse)
 
 ```
 
@@ -28,7 +31,7 @@ Now that you've loaded all the libraries we need, the next step is to load any d
 ```{r load data}
 
 # data.dir <- "~/your/data/directory/here/" #change this to match the folder where the data is stored
-data.dir <- "."
+data.dir <- "../01_data"
 
 file.name <- "durham_data_tutorial_version.csv"
 file <- file.path(data.dir, file.name)
@@ -69,11 +72,14 @@ Wait a minute, that's not right. What's going on? Sometimes, inappropriate metad
 
 ```{r fix metadata}
 
-( meta <- read.csv(file.name, header=FALSE, nrows=10)[,1:2] ) #metadata stops on row 10
-( headers <- colnames( read.csv(file.name, skip=12, nrows=1) ) ) #headers are on row 12
-data <- read.csv(file.name, skip=13, row.names=NULL, header=FALSE) #data is on row 13+
-colnames(data) <- headers #set the headers to be the column names of 'data'
+# load the metadata separately using "readLines"
+meta <- readLines( file, n=10 ) #metadata stops on row 10
+meta <- paste( gsub(',', '', meta), collapse="\n") #format better for viewing by removing errant commas
+message(meta)
 
+# now load the data
+data <- read.csv(file, skip=12, row.names=NULL) #data is on row 12+
+head(data)
 ```
 
 Now we have the data we need saved in 'data', and the metadata stored in 'meta'. Let's save the metadata into a new file (NOT overwriting the raw data).
@@ -90,7 +96,7 @@ write.table(meta, file=file, row.names=FALSE, col.names=FALSE)
 For data cleaning, we're going to cover three main issues: (1) Inconsistent Data Entry, (2) Duplicate Rows, and (3) Missing Data.
 
 
-###INCONSISTENT DATA ENTRY
+### INCONSISTENT DATA ENTRY
 
 Now we are ready to look at the real data! It can be helpful at first to look at the "unique" data values for each column, to get a sense of what you're working with. Let's start with "Sky.Condition"
 
@@ -118,7 +124,7 @@ data <- data %>%
 
 
 
-DUPLICATE DATA
+### DUPLICATE DATA
  
 ```{r find duplicates}
 
@@ -148,8 +154,7 @@ dupes <- dupes %>%
   distinct(Station.Name, Filtered, Parameter, Date.Time, .keep_all=TRUE)
 
 # make sure both datasets are the same length and in the same order
-nrow(dupes) == nrow(means)
-all(dupes$ID == means$ID)
+nrow(dupes) == nrow(means) && all(dupes$ID == means$ID)
 
 # Now that we're sure, replace Value column of distinct dupes with mean values 
 # and remove the ID column
@@ -168,7 +173,7 @@ head(data)
 
 
 
-MISSING DATA
+### MISSING DATA
 
 ```{r}
 summary( data$Value )

@@ -12,7 +12,7 @@
 <meta name="author" content="Margaret Swift, Jonathan Behrens" />
 
 
-<title>Ellerbe Creek Tutorial</title>
+<title>Ellerbe Creek Cleanup Tutorial</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -139,7 +139,8 @@ a.sourceLine {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Ellerbe Creek Tutorial</h1>
+<h1 class="title toc-ignore project-name">Ellerbe Creek Cleanup
+Tutorial</h1>
 <h4 class="author project-author">Margaret Swift, Jonathan Behrens</h4>
 <h4 class="date project-date">26 July, 2022</h4>
 </section>
@@ -148,6 +149,7 @@ a.sourceLine {
 <div id="TOC" class="toc">
 <div class="toc-box">
 <ul>
+<li><a href="#welcome" id="toc-welcome">Welcome!</a></li>
 <li><a href="#section-01-workflow" id="toc-section-01-workflow">SECTION
 01: WORKFLOW</a>
 <ul>
@@ -161,6 +163,10 @@ Why R?</a></li>
 <ul>
 <li><a href="#open-the-data-and-take-a-look" id="toc-open-the-data-and-take-a-look">Open the data and take a
 look</a></li>
+<li><a href="#inconsistent-data-entry" id="toc-inconsistent-data-entry">INCONSISTENT DATA ENTRY</a></li>
+<li><a href="#duplicate-data" id="toc-duplicate-data">DUPLICATE
+DATA</a></li>
+<li><a href="#missing-data" id="toc-missing-data">MISSING DATA</a></li>
 </ul></li>
 <li><a href="#section-04-visualization-and-analysis" id="toc-section-04-visualization-and-analysis">SECTION 04: Visualization
 and Analysis</a></li>
@@ -170,6 +176,12 @@ and Analysis</a></li>
 </div>
 
 <section class="main-content">
+<div id="welcome" class="section level1">
+<h1>Welcome!</h1>
+<p>Welcome to the Ellerbe Creek Cleanup Tutorial! To download this file
+and follow along, head over to our <a href="https://github.com/margaret-swift/ellerbe-creek">GitHub
+page</a></p>
+</div>
 <div id="section-01-workflow" class="section level1">
 <h1>SECTION 01: WORKFLOW</h1>
 <div id="set-up-your-environment" class="section level3">
@@ -178,28 +190,19 @@ and Analysis</a></li>
 and loading any libraries that you need to run the code for this module.
 To run a block of code, click the green arrow in the top right of the
 gray box below.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-## ✔ tibble  3.1.7     ✔ dplyr   1.0.7
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-## ✔ readr   2.1.2     ✔ forcats 0.5.1</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span></code></pre></div>
 </div>
 <div id="load-your-data" class="section level3">
 <h3>Load your data</h3>
 <p>Now that you’ve loaded all the libraries we need, the next step is to
 load any data for this project. Replace the below code with the location
 of the dataset in your own file structure.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data.dir &lt;- &quot;~/your/data/directory/here/&quot; #change this to match the folder where the data is stored</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data.dir <span class="ot">&lt;-</span> <span class="st">&quot;.&quot;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>file.name <span class="ot">&lt;-</span> <span class="st">&quot;durham_data_tutorial_version.csv&quot;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(data.dir, file.name)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data.dir &lt;- &quot;~/your/data/directory/here/&quot; #change this to match the folder where the data is stored</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data.dir <span class="ot">&lt;-</span> <span class="st">&quot;../01_data&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>file.name <span class="ot">&lt;-</span> <span class="st">&quot;durham_data_tutorial_version.csv&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(data.dir, file.name)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file)</span></code></pre></div>
 </div>
 </div>
 <div id="section-02-why-r" class="section level1">
@@ -212,8 +215,8 @@ of the dataset in your own file structure.</p>
 <p>Now, back to the dataset at hand. Did you know that you can view data
 in R just like you do in Excel? Using the View() command, you can view
 the dataset like a spreadsheet. Try it out:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(data)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <colgroup>
@@ -375,110 +378,212 @@ preserve this data, as it is important, but in a more appropriate way.
 An easy way to do this is to read the data in three parts. Once, to grab
 the metadata; second, to grab the column headers; third, to grab the
 actual data:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>( meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file.name, <span class="at">header=</span><span class="cn">FALSE</span>, <span class="at">nrows=</span><span class="dv">10</span>)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] ) <span class="co">#metadata stops on row 10</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the metadata separately using &quot;readLines&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">readLines</span>( file, <span class="at">n=</span><span class="dv">10</span> ) <span class="co">#metadata stops on row 10</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">paste</span>( <span class="fu">gsub</span>(<span class="st">&#39;,&#39;</span>, <span class="st">&#39;&#39;</span>, meta), <span class="at">collapse=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co">#format better for viewing by removing errant commas</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(meta)</span></code></pre></div>
+<pre><code>## Disclaimer: Although Stormwater Services makes every effort to ensure data quality in the monitoring program errors do arise and may not be identified at the time the data was uploaded to this database.  The City of Durham does not assume any liability associated with the use of these data and is not obligated to notify parties of modifications or changes to the database.
+## 
+## Query Results: 
+## Name:EL10.7EC-EL1.9EC-EL5.0EC-EL5.5GC-EL5.6EC-EL7.1EC-EL7.1SEC-EL7.6SECT-EL7.9EC-EL8.1GC-EL8.2EC-EL8.5SEC-EL8.6SECUT-EL9.9EC-EL-Englewood-EL-Knox 
+## Medium:Water
+## Parameters: all 
+## Project: Ambient
+## Time Period:2016-05-02 ~ 2022-05-02
+## Data was downloaded on May 23 2022 11:41 am
+## The data contains the QA code.</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now load the data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file, <span class="at">skip=</span><span class="dv">12</span>, <span class="at">row.names=</span><span class="cn">NULL</span>) <span class="co">#data is on row 12+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <div class="kable-table">
-<table>
+<table style="width:100%;">
 <colgroup>
-<col width="35%" />
-<col width="64%" />
+<col width="6%" />
+<col width="4%" />
+<col width="5%" />
+<col width="6%" />
+<col width="2%" />
+<col width="3%" />
+<col width="4%" />
+<col width="5%" />
+<col width="22%" />
+<col width="10%" />
+<col width="6%" />
+<col width="6%" />
+<col width="5%" />
+<col width="3%" />
+<col width="2%" />
+<col width="3%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">V1</th>
-<th align="left">V2</th>
+<th align="left">Station.Name</th>
+<th align="left">Filtered</th>
+<th align="left">Parameter</th>
+<th align="left">Date.Time</th>
+<th align="right">Value</th>
+<th align="left">QA.Code</th>
+<th align="left">Unit</th>
+<th align="left">QAQC.Sample</th>
+<th align="left">Comments</th>
+<th align="left">Rain.in.Last.24.Hours</th>
+<th align="left">Sky.Condition</th>
+<th align="right">Flow.Severity</th>
+<th align="left">Comp..Code</th>
+<th align="left">Thalweg</th>
+<th align="left">Lab</th>
+<th align="left">Project</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Disclaimer: Although Stormwater Services makes every
-effort to ensure data quality in the monitoring program</td>
-<td align="left">errors do arise and may not be identified at the time
-the data was uploaded to this database. The City of Durham does not
-assume any liability associated with the use of these data and is not
-obligated to notify parties of modifications or changes to the
-database.</td>
+<td align="left">EL8.5SEC</td>
+<td align="left"></td>
+<td align="left">Alkalinity</td>
+<td align="left">5/11/16 8:40</td>
+<td align="right">94</td>
+<td align="left"></td>
+<td align="left">mgCaCO3/L</td>
+<td align="left"></td>
+<td align="left">Staff Gage: 0.68</td>
+<td align="left">No</td>
+<td align="left">Partly Cloudy</td>
+<td align="right">2</td>
+<td align="left">G</td>
+<td align="left">Yes</td>
+<td align="left">SDWRF</td>
+<td align="left">Ambient</td>
 </tr>
 <tr class="even">
+<td align="left">EL8.5SEC</td>
 <td align="left"></td>
+<td align="left">Alkalinity</td>
+<td align="left">6/15/16 8:35</td>
+<td align="right">88</td>
 <td align="left"></td>
+<td align="left">mgCaCO3/L</td>
+<td align="left"></td>
+<td align="left">Staff Gage: 0.64; Barely discernable discharge</td>
+<td align="left">No</td>
+<td align="left">Partly Cloudy</td>
+<td align="right">1</td>
+<td align="left">G</td>
+<td align="left">Yes</td>
+<td align="left">SDWRF</td>
+<td align="left">Ambient</td>
 </tr>
 <tr class="odd">
-<td align="left">Query Results:</td>
+<td align="left">EL8.5SEC</td>
 <td align="left"></td>
+<td align="left">Alkalinity</td>
+<td align="left">7/13/16 8:35</td>
+<td align="right">60</td>
+<td align="left"></td>
+<td align="left">mgCaCO3/L</td>
+<td align="left"></td>
+<td align="left">Staff Gage: 0.73</td>
+<td align="left">Yes</td>
+<td align="left">Overcast</td>
+<td align="right">2</td>
+<td align="left">G</td>
+<td align="left">Yes</td>
+<td align="left">SDWRF</td>
+<td align="left">Ambient</td>
 </tr>
 <tr class="even">
-<td align="left">Name:EL10.7EC-EL1.9EC-EL5.0EC-EL5.5GC-EL5.6EC-EL7.1EC-EL7.1SEC-EL7.6SECT-EL7.9EC-EL8.1GC-EL8.2EC-EL8.5SEC-EL8.6SECUT-EL9.9EC-EL-Englewood-EL-Knox</td>
+<td align="left">EL8.5SEC</td>
 <td align="left"></td>
+<td align="left">Alkalinity</td>
+<td align="left">8/10/16 8:30</td>
+<td align="right">90</td>
+<td align="left"></td>
+<td align="left">mgCaCO3/L</td>
+<td align="left"></td>
+<td align="left">Staff Gage: 0.56</td>
+<td align="left">Yes</td>
+<td align="left">Partly Cloudy</td>
+<td align="right">3</td>
+<td align="left">G</td>
+<td align="left">Yes</td>
+<td align="left">SDWRF</td>
+<td align="left">Ambient</td>
 </tr>
 <tr class="odd">
-<td align="left">Medium:Water</td>
+<td align="left">EL8.5SEC</td>
 <td align="left"></td>
+<td align="left">Alkalinity</td>
+<td align="left">9/14/16 8:40</td>
+<td align="right">110</td>
+<td align="left"></td>
+<td align="left">mgCaCO3/L</td>
+<td align="left"></td>
+<td align="left">Duplicate Site; Staff Gage: 0.66 Duplicate</td>
+<td align="left">No</td>
+<td align="left">Partly Cloudy</td>
+<td align="right">2</td>
+<td align="left">G</td>
+<td align="left">Yes</td>
+<td align="left">SDWRF</td>
+<td align="left">Ambient</td>
 </tr>
 <tr class="even">
-<td align="left">Parameters: all</td>
+<td align="left">EL8.5SEC</td>
 <td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Project: Ambient</td>
+<td align="left">Alkalinity</td>
+<td align="left">9/14/16 8:40</td>
+<td align="right">110</td>
 <td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left">Time Period:2016-05-02 ~ 2022-05-02</td>
+<td align="left">mgCaCO3/L</td>
 <td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Data was downloaded on May 23 2022 11:41 am</td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left">The data contains the QA code.</td>
-<td align="left"></td>
+<td align="left">Duplicate Site; Staff Gage: 0.66 Duplicate</td>
+<td align="left">No</td>
+<td align="left">Partly Cloudy</td>
+<td align="right">2</td>
+<td align="left">G</td>
+<td align="left">Yes</td>
+<td align="left">SDWRF</td>
+<td align="left">Ambient</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>( headers <span class="ot">&lt;-</span> <span class="fu">colnames</span>( <span class="fu">read.csv</span>(file.name, <span class="at">skip=</span><span class="dv">12</span>, <span class="at">nrows=</span><span class="dv">1</span>) ) ) <span class="co">#headers are on row 12</span></span></code></pre></div>
-<pre><code>##  [1] &quot;Station.Name&quot;          &quot;Filtered&quot;              &quot;Parameter&quot;            
-##  [4] &quot;Date.Time&quot;             &quot;Value&quot;                 &quot;QA.Code&quot;              
-##  [7] &quot;Unit&quot;                  &quot;QAQC.Sample&quot;           &quot;Comments&quot;             
-## [10] &quot;Rain.in.Last.24.Hours&quot; &quot;Sky.Condition&quot;         &quot;Flow.Severity&quot;        
-## [13] &quot;Comp..Code&quot;            &quot;Thalweg&quot;               &quot;Lab&quot;                  
-## [16] &quot;Project&quot;</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file.name, <span class="at">skip=</span><span class="dv">13</span>, <span class="at">row.names=</span><span class="cn">NULL</span>, <span class="at">header=</span><span class="cn">FALSE</span>) <span class="co">#data is on row 13+</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> headers <span class="co">#set the headers to be the column names of &#39;data&#39;</span></span></code></pre></div>
 <p>Now we have the data we need saved in ‘data’, and the metadata stored
 in ‘meta’. Let’s save the metadata into a new file (NOT overwriting the
 raw data).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>file.name <span class="ot">&lt;-</span> <span class="st">&#39;metadata.txt&#39;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(data.dir, file.name)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(meta, <span class="at">file=</span>file, <span class="at">row.names=</span><span class="cn">FALSE</span>, <span class="at">col.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>file.name <span class="ot">&lt;-</span> <span class="st">&#39;metadata.txt&#39;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(data.dir, file.name)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(meta, <span class="at">file=</span>file, <span class="at">row.names=</span><span class="cn">FALSE</span>, <span class="at">col.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p>For data cleaning, we’re going to cover three main issues: (1)
 Inconsistent Data Entry, (2) Duplicate Rows, and (3) Missing Data.</p>
-<p>###INCONSISTENT DATA ENTRY</p>
+</div>
+<div id="inconsistent-data-entry" class="section level3">
+<h3>INCONSISTENT DATA ENTRY</h3>
 <p>Now we are ready to look at the real data! It can be helpful at first
 to look at the “unique” data values for each column, to get a sense of
 what you’re working with. Let’s start with “Sky.Condition”</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>( <span class="fu">unique</span>( data<span class="sc">$</span>Sky.Condition ) )</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>( <span class="fu">unique</span>( data<span class="sc">$</span>Sky.Condition ) )</span></code></pre></div>
 <pre><code>##  [1] &quot;&quot;               &quot;overcast&quot;       &quot;Overcast&quot;       &quot;Partly Clouded&quot;
 ##  [5] &quot;Partly Cloudy&quot;  &quot;Party Cloudy&quot;   &quot;Sun&quot;            &quot;sunny&quot;         
 ##  [9] &quot;Sunny&quot;          &quot;Suny&quot;</code></pre>
 <p>Ah, it looks like somebody had some inconsistancies with
 spellings.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, make everything in the column lowercase &#39;tolower()&#39; to make your life easier</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sky.Condition =</span> <span class="fu">tolower</span>( Sky.Condition ))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>( <span class="fu">unique</span>( data<span class="sc">$</span>Sky.Condition ) )</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, make everything in the column lowercase &#39;tolower()&#39; to make your life easier</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sky.Condition =</span> <span class="fu">tolower</span>( Sky.Condition ))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>( <span class="fu">unique</span>( data<span class="sc">$</span>Sky.Condition ) )</span></code></pre></div>
 <pre><code>## [1] &quot;&quot;               &quot;overcast&quot;       &quot;partly clouded&quot; &quot;partly cloudy&quot; 
 ## [5] &quot;party cloudy&quot;   &quot;sun&quot;            &quot;sunny&quot;          &quot;suny&quot;</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sky.Condition =</span> <span class="fu">tolower</span>( Sky.Condition ))</span></code></pre></div>
-<p>DUPLICATE DATA</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find rows with &quot;duplicate&quot; in the comments, then create a new data frame just with those.</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>inx.dup <span class="ot">&lt;-</span> <span class="fu">which</span>( <span class="fu">grepl</span>( <span class="st">&#39;duplicate&#39;</span>, <span class="fu">tolower</span>(data<span class="sc">$</span>Comments) ) ) </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> data[inx.dup,] </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( dupes )</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sky.Condition =</span> <span class="fu">tolower</span>( Sky.Condition ))</span></code></pre></div>
+</div>
+<div id="duplicate-data" class="section level3">
+<h3>DUPLICATE DATA</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find rows with &quot;duplicate&quot; in the comments, then create a new data frame just with those.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>inx.dup <span class="ot">&lt;-</span> <span class="fu">which</span>( <span class="fu">grepl</span>( <span class="st">&#39;duplicate&#39;</span>, <span class="fu">tolower</span>(data<span class="sc">$</span>Comments) ) ) </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> data[inx.dup,] </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( dupes )</span></code></pre></div>
 <div class="kable-table">
 <table style="width:100%;">
 <colgroup>
@@ -647,38 +752,36 @@ how to deal with duplicate data. For now, we’ve decided to take the
 average of the two values. If you want to use just the first value,
 distinct() is fine; otherwise, here’s how to replace duplicate values
 with the averages:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an ID row to sort on station name, filtered, parameter, and date</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">paste0</span>(Station.Name, Filtered, Parameter, Date.Time)) <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ID)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the mean values for each combination</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ID) <span class="sc">%&gt;%</span> <span class="co">#group dataframe by ID</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">MeanValue =</span> <span class="fu">mean</span>(Value, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="co">#take the mean and ignore NAs</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># collapse the duplicate data frame based on ID and sort it the same way</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Station.Name, Filtered, Parameter, Date.Time, <span class="at">.keep_all=</span><span class="cn">TRUE</span>)</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure both datasets are the same length and in the same order</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dupes) <span class="sc">==</span> <span class="fu">nrow</span>(means)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an ID row to sort on station name, filtered, parameter, and date</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">paste0</span>(Station.Name, Filtered, Parameter, Date.Time)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ID)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the mean values for each combination</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ID) <span class="sc">%&gt;%</span> <span class="co">#group dataframe by ID</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">MeanValue =</span> <span class="fu">mean</span>(Value, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="co">#take the mean and ignore NAs</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># collapse the duplicate data frame based on ID and sort it the same way</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Station.Name, Filtered, Parameter, Date.Time, <span class="at">.keep_all=</span><span class="cn">TRUE</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure both datasets are the same length and in the same order</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dupes) <span class="sc">==</span> <span class="fu">nrow</span>(means) <span class="sc">&amp;&amp;</span> <span class="fu">all</span>(dupes<span class="sc">$</span>ID <span class="sc">==</span> means<span class="sc">$</span>ID)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(dupes<span class="sc">$</span>ID <span class="sc">==</span> means<span class="sc">$</span>ID)</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we&#39;re sure, replace Value column of distinct dupes with mean values </span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and remove the ID column</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>dupes<span class="sc">$</span>Value <span class="ot">&lt;-</span> means<span class="sc">$</span>MeanValue</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Put it all together! First, remove duplicated rows from the main data frame</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="sc">-</span>inx.dup,]</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the averaged, previously-duplicated rows to the end of the data frame</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(data, dupes) <span class="sc">%&gt;%</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Station.Name, Filtered, Parameter, Date.Time) <span class="co">#sort data again</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we&#39;re sure, replace Value column of distinct dupes with mean values </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and remove the ID column</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>dupes<span class="sc">$</span>Value <span class="ot">&lt;-</span> means<span class="sc">$</span>MeanValue</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>dupes <span class="ot">&lt;-</span> dupes <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Put it all together! First, remove duplicated rows from the main data frame</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="sc">-</span>inx.dup,]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the averaged, previously-duplicated rows to the end of the data frame</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(data, dupes) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Station.Name, Filtered, Parameter, Date.Time) <span class="co">#sort data again</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <div class="kable-table">
 <table style="width:100%;">
 <colgroup>
@@ -831,11 +934,13 @@ with the averages:</p>
 </tbody>
 </table>
 </div>
-<p>MISSING DATA</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( data<span class="sc">$</span>Value )</span></code></pre></div>
+</div>
+<div id="missing-data" class="section level3">
+<h3>MISSING DATA</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( data<span class="sc">$</span>Value )</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##     0.0     2.5     7.6  1590.7    78.0 76800.0       2</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>( <span class="fu">is.na</span>(data<span class="sc">$</span>Value) )</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>( <span class="fu">is.na</span>(data<span class="sc">$</span>Value) )</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
