@@ -1,0 +1,199 @@
+---
+title: "Ellerbe Creek Tutorial"
+author: "Margaret Swift, Jonathan Behrens"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  prettydoc::html_pretty:
+    toc: true
+    df_print: kable
+---
+
+
+# SECTION 01: WORKFLOW
+
+### Set up your environment
+
+First, you need to set up your environment. This involves installing and loading any libraries that you need to run the code for this module. To run a block of code, click the green arrow in the top right of the gray box below. 
+
+```{r load libraries}
+
+library(tidyverse)
+
+```
+
+### Load your data
+
+Now that you've loaded all the libraries we need, the next step is to load any data for this project. Replace the below code with the location of the dataset in your own file structure.
+
+```{r load data}
+
+# data.dir <- "~/your/data/directory/here/" #change this to match the folder where the data is stored
+data.dir <- "."
+
+file.name <- "durham_data_tutorial_version.csv"
+file <- file.path(data.dir, file.name)
+data <- read.csv(file)
+
+```
+
+
+
+
+# SECTION 02: Why R?
+
+
+
+
+
+
+# SECTION 03: Cleaning Up
+
+
+### Open the data and take a look
+
+Now, back to the dataset at hand. Did you know that you can view data in R just like you do in Excel? Using the View() command, you can view the dataset like a spreadsheet. Try it out:
+
+```{r view data, eval=FALSE}
+
+View(data)
+
+```
+
+```{r head data}
+
+head(data)
+
+```
+
+Wait a minute, that's not right. What's going on? Sometimes, inappropriate metadata is stored within a .csv file. CSV, or comma-separated values, should only have data in them. If you open this spreadsheet in Excel, you will see that there is a set of data on top of the original that gives valuable metadata on the collection. We want to preserve this data, as it is important, but in a more appropriate way. An easy way to do this is to read the data in three parts. Once, to grab the metadata; second, to grab the column headers; third, to grab the actual data:
+
+```{r fix metadata}
+
+( meta <- read.csv(file.name, header=FALSE, nrows=10)[,1:2] ) #metadata stops on row 10
+( headers <- colnames( read.csv(file.name, skip=12, nrows=1) ) ) #headers are on row 12
+data <- read.csv(file.name, skip=13, row.names=NULL, header=FALSE) #data is on row 13+
+colnames(data) <- headers #set the headers to be the column names of 'data'
+
+```
+
+Now we have the data we need saved in 'data', and the metadata stored in 'meta'. Let's save the metadata into a new file (NOT overwriting the raw data).
+
+```{r save metadata}
+
+file.name <- 'metadata.txt'
+file <- file.path(data.dir, file.name)
+write.table(meta, file=file, row.names=FALSE, col.names=FALSE)
+
+```
+
+
+For data cleaning, we're going to cover three main issues: (1) Inconsistent Data Entry, (2) Duplicate Rows, and (3) Missing Data.
+
+
+###INCONSISTENT DATA ENTRY
+
+Now we are ready to look at the real data! It can be helpful at first to look at the "unique" data values for each column, to get a sense of what you're working with. Let's start with "Sky.Condition"
+
+```{r explore data with multiple spellings}
+
+sort( unique( data$Sky.Condition ) )
+
+```
+
+Ah, it looks like somebody had some inconsistancies with spellings. 
+
+```{r}
+
+# First, make everything in the column lowercase 'tolower()' to make your life easier
+
+data <- data %>%
+  mutate(Sky.Condition = tolower( Sky.Condition ))
+
+sort( unique( data$Sky.Condition ) )
+
+data <- data %>%
+  mutate(Sky.Condition = tolower( Sky.Condition ))
+
+```
+
+
+
+DUPLICATE DATA
+ 
+```{r find duplicates}
+
+# find rows with "duplicate" in the comments, then create a new data frame just with those.
+inx.dup <- which( grepl( 'duplicate', tolower(data$Comments) ) ) 
+dupes <- data[inx.dup,] 
+head( dupes )
+
+```
+
+Normally, you could just get rid of duplicates using the function distinct(). distinct() simply drops the second row that is duplicated, however. Take a look at some of these values in 'dupes' -- they're not the same! When looking at your own data, you need to make decisions on how to deal with duplicate data. For now, we've decided to take the average of the two values. If you want to use just the first value, distinct() is fine; otherwise, here's how to replace duplicate values with the averages:
+
+```{r}
+
+# Create an ID row to sort on station name, filtered, parameter, and date
+dupes <- dupes %>% 
+  mutate(ID = paste0(Station.Name, Filtered, Parameter, Date.Time)) %>%
+  arrange(ID)
+
+# grab the mean values for each combination
+means <- dupes %>% 
+  group_by(ID) %>% #group dataframe by ID
+  summarize(MeanValue = mean(Value, na.rm=TRUE)) #take the mean and ignore NAs
+
+# collapse the duplicate data frame based on ID and sort it the same way
+dupes <- dupes %>% 
+  distinct(Station.Name, Filtered, Parameter, Date.Time, .keep_all=TRUE)
+
+# make sure both datasets are the same length and in the same order
+nrow(dupes) == nrow(means)
+all(dupes$ID == means$ID)
+
+# Now that we're sure, replace Value column of distinct dupes with mean values 
+# and remove the ID column
+dupes$Value <- means$MeanValue
+dupes <- dupes %>% dplyr::select(-ID)
+
+# Put it all together! First, remove duplicated rows from the main data frame
+data <- data[-inx.dup,]
+
+# Add the averaged, previously-duplicated rows to the end of the data frame
+data <- bind_rows(data, dupes) %>%
+  arrange(Station.Name, Filtered, Parameter, Date.Time) #sort data again
+
+head(data)
+```
+
+
+
+MISSING DATA
+
+```{r}
+summary( data$Value )
+any( is.na(data$Value) )
+
+```
+
+
+
+
+
+
+
+
+
+# SECTION 04: Visualization and Analysis
+
+
+
+
+
+
+
+
+
+
+
+# SECTION 05: Conclusion
