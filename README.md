@@ -23,5 +23,6 @@ In **Section 3: Cleaning Up**, we cover methods for overcoming data-cleaning hur
 In **Section 4: Visualization and Analysis**, students will lead their own investigations into the datasets. First, they learn to summarize data using frequency analysis through histograms, plotting the location and number of site and analytes on a map, and displaying summary boxplots for data variance. Next, we introduce the question of how indicators of water quality (the “analytes”) change in spatially and temporally. Students will select a few data types to analyze more closely, both over a temporal scale (variable Y versus time, e.g. Sodium over time) and compared to other data (variable Y versus variable X, e.g. Sodium vs. Chlorine content). Students will then come up their own conclusions about  
 
 Finally, in **Section 5: Conclusion**, we have students summarize their findings and hypothesize reasons behind the relationships they have uncovered. Finally, we briefly cover statistical tools that could be used to further analyze these data, and propose the question of effort and funding, and why certain contaminants are measured for water quality and the limitations of grab samples.  
- 
+
+## Get Started!
 **You can view the main tutorial on RPubs here: https://rpubs.com/margaret-swift/ellerbe-creek**
