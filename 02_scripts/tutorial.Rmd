@@ -191,13 +191,64 @@ any( is.na(data$Value) )
 
 # SECTION 04: Visualization and Analysis
 
+Now let's visualize some of this data! Through visualizations, we can take complex or large datasets and simplify them to look for trends. That in turn can help guide our analysis or direct us towards interesting and new questions. 
+
+### Time Series Plots and Analysis
+Starting with the basics, we can think about this dataset as a time series and plot a given analyte against time. 
+
+```{r}
+# Let's see how concentrations of X changes over time. We can color the points based on the site where the sample was taken.
+
+# JB TO INSERT CODE
+
+# Cool, we can see how the concentration varies overtime, but it's hard to tell how variation throughout the year differs between sites. So let's look at a boxplot of this data! 
+
+# JB TO INSERT CODE 
+
+# Let's get fancy and separate this out by year. Maybe there's a difference between years? 
+
+# JB TO INSERT CODE
+
+# Try doing the same visualizations now, but with a different variable. Make sure you use the exact name of the variable as it is found in the dataset!
 
 
+```
+
+### Exploring What Drives Variation Between Sites
+
+Why, you might ask, is there variation between the sites? What might be causing that? Let's explore that further with a new dataset! This is a great opportunity to practice loading in the dataset and then doing a few new visualizations. We made it easier on you by cleaning up the dataset, but still check it out to make sure there aren't any quirks that will harm your work.
+
+A note about this dataset: This second dataset is a sampling blitz of ~34 sites in the same stream, conducted seasonally at 3 different points. There are strengths (and weaknesses) to each dataset. Durham's dataset gives us many years (weekly to monthly samples) but only at a few sites. Whereas the Synoptic dataset gives us many sites (~34!) but only at 3 points in time (different seasons).
+
+``` {r}
+# Load in the Synoptic dataset here 
+
+# Check it out, see if there's any weird quirks that need to be cleaned
+
+```
+
+Okay lets try some simple, but cool, statistics. There are two ions that were measured in this dataset that might be familiar: Na and Cl. That's table salt! Turns out it is also what we put on our roads in the winter to de-ice. That said, perhaps the concentrations of both maybe are closely coorelated since they come from the same source? Let's find out! 
+
+```{r}
+# Let's calculate the coorelation between Na and Cl. The closer to 1, the higher the coorelation. 0 is no coorelation.
+
+# JB TO INSERT CODE
+
+# Now let's visualize it! Is it well coorelated across values? Maybe it is closely coorelated for smaller values vs. large values; or maybe it doesn't matter the concentration. Let's find out.
+
+# JB TO INSERT CODE 
+
+```
+
+Now explore it for yourself for other compounds! 
+
+While you are at it, you could also start to explore some other measures taken alongside this dataset. You'll see all the lovely chemistry data, but there is also socioeconomic data. Is there a coorelation between the density of roads and Na & Cl (since that's probably the main source of these salts)? What other hypotheses do you have? Check out this site for some ideas :D (INSERT LINK TO DATA+ SITE, PARAMATER PAGE).
+
+```{r}
+# Try doing the same visualizations now, but with different variables. Make sure you use the exact name of the variable as it is found in the dataset!
 
 
-
-
-
+```
 
 
 
