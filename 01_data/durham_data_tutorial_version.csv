@@ -40,8 +40,8 @@ EL8.5SEC,,Aluminum,11/9/16 9:05,414,,ug/L,,"Staff Gage:  0.90; High stage, merky
 EL8.5SEC,,Aluminum,12/8/16 9:00,62,,ug/L,,Staff Gage:  0.67,Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL10.7EC,,Ammonia Nitrogen,1/11/17 9:20,0.23,,mg/L,,Duplicate Site; High conductivity due to ice treatment for snow storm Duplicate,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL10.7EC,,Ammonia Nitrogen,1/11/17 9:20,0.21,,mg/L,,Duplicate Site; High conductivity due to ice treatment for snow storm Duplicate,Yes,Overcast,3,G,Yes,SDWRF,Ambient
-EL10.7EC,,Ammonia Nitrogen,2/15/17 9:00,0.46,,mg/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient
-EL10.7EC,,Ammonia Nitrogen,3/15/17 8:50,0.04,U,mg/L,, ,Yes,Sunny,2,G,Yes,SDWRF,Ambient
+EL10.7EC,,Ammonia Nitrogen,2/15/17 9:00,0.46,,mg/L,, ,Yes,overcast,3,G,Yes,SDWRF,Ambient
+EL10.7EC,,Ammonia Nitrogen,3/15/17 8:50,0.04,U,mg/L,, ,Yes,suny,2,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,5/10/16 9:05,0.12,,mg/L,, ,Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,6/14/16 9:15,0.05,,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,7/12/16 9:25,0.06,,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
@@ -65,7 +65,7 @@ EL1.9EC,,Ammonia Nitrogen,10/10/17 10:00,0.04,U,mg/L,, ,Yes,Overcast,2,G,Yes,SDW
 EL1.9EC,,Ammonia Nitrogen,11/7/17 10:05,0.04,U,mg/L,, ,No,Overcast,2,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,12/5/17 10:20,0.04,U,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,1/2/18 9:45,0.04,U,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
-EL1.9EC,,Ammonia Nitrogen,2/6/18 9:55,0.05,,mg/L,,Duplicate Site Duplicate,Yes,Sun,3,G,Yes,SDWRF,Ambient
+EL1.9EC,,Ammonia Nitrogen,2/6/18 9:55,0.05,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,2/6/18 9:55,0.03,U,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,3/6/18 9:10,0.04,U,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,4/3/18 9:45,0.89,,mg/L,,SSO upstream,,,,,,,Ambient
@@ -87,7 +87,7 @@ EL1.9EC,,Ammonia Nitrogen,6/5/19 9:10,0.06,,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Am
 EL1.9EC,,Ammonia Nitrogen,7/9/19 9:00,0.06,,mg/L,, ,Yes,Overcast,3,G,No,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,8/6/19 9:00,0.04,U,mg/L,, ,Yes,Overcast,3,G,No,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,9/3/19 9:30,0.04,J,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
-EL1.9EC,,Ammonia Nitrogen,10/1/19 9:30,0.04,U,mg/L,, ,No,Sun,3,G,Yes,SDWRF,Ambient
+EL1.9EC,,Ammonia Nitrogen,10/1/19 9:30,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,11/5/19 9:15,0.06,,mg/L,,Duplicate Site Duplicate,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,11/5/19 9:15,0.05,,mg/L,,Duplicate Site Duplicate,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL1.9EC,,Ammonia Nitrogen,12/3/19 9:05,0.04,U,mg/L,,Organic foam on water surfaace,No,Sunny,3,G,Yes,SDWRF,Ambient
@@ -126,7 +126,7 @@ EL5.5GC,,Ammonia Nitrogen,3/14/17 9:45,0.06,,mg/L,, ,Yes,Overcast,4,G,Yes,SDWRF,
 EL5.5GC,,Ammonia Nitrogen,4/11/17 9:15,0.17,,mg/L,,"Duplicate Site, Staff Gage: 3.98' Duplicate",No,Sunny,2,G,Yes,SDWRF,Ambient
 EL5.5GC,,Ammonia Nitrogen,4/11/17 9:15,0.16,,mg/L,,"Duplicate Site, Staff Gage: 3.98' Duplicate",No,Sunny,2,G,Yes,SDWRF,Ambient
 EL5.5GC,,Ammonia Nitrogen,5/16/17 9:05,0.07,,mg/L,,Staff Gage: 4.40',No,Sunny,2,G,Yes,SDWRF,Ambient
-EL5.5GC,,Ammonia Nitrogen,6/13/17 8:20,0.04,U,mg/L,,Staff Gage: 3.86',No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
+EL5.5GC,,Ammonia Nitrogen,6/13/17 8:20,0.04,U,mg/L,,Staff Gage: 3.86',No,party cloudy,2,G,Yes,SDWRF,Ambient
 EL5.5GC,,Ammonia Nitrogen,7/11/17 9:25,0.06,,mg/L,,Staff Gage: 3.96',Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL5.5GC,,Ammonia Nitrogen,8/15/17 9:20,0.11,J7,mg/L,,Staff Gage: 3.90',Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL5.5GC,,Ammonia Nitrogen,9/12/17 9:40,0.04,J,mg/L,,Staff Gage: 3.89',Yes,Overcast,1,G,Yes,SDWRF,Ambient
@@ -186,7 +186,7 @@ EL5.6EC,,Ammonia Nitrogen,11/5/19 9:50,0.04,U,mg/L,,Large blockage upstream of c
 EL5.6EC,,Ammonia Nitrogen,12/3/19 10:05,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,1/19/17 11:20,0.04,U,mg/L,, ,Yes,Sunny,2,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,2/14/17 11:10,0.04,U,mg/L,,Lots of filamentous algae,No,Sunny,2,G,Yes,SDWRF,Ambient
-EL7.1EC,,Ammonia Nitrogen,3/14/17 11:00,0.04,U,mg/L,, ,Yes,Party Cloudy,3,G,Yes,SDWRF,Ambient
+EL7.1EC,,Ammonia Nitrogen,3/14/17 11:00,0.04,U,mg/L,, ,Yes,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,4/11/17 8:05,0.04,U,mg/L,, ,,,,,,,Ambient
 EL7.1EC,,Ammonia Nitrogen,5/16/17 10:30,0.05,,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,6/13/17 10:25,0.04,U,mg/L,, ,No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
@@ -211,7 +211,7 @@ EL7.1EC,,Ammonia Nitrogen,9/4/18 9:00,0.07,,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambie
 EL7.1EC,,Ammonia Nitrogen,10/2/18 8:55,0.07,,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,11/6/18 8:30,0.04,U,mg/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,12/4/18 9:30,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
-EL7.1EC,,Ammonia Nitrogen,1/8/19 11:00,0.04,"U,J",mg/L,, ,No,Partly Clouded,3,G,Yes,SDWRF,Ambient
+EL7.1EC,,Ammonia Nitrogen,1/8/19 11:00,0.04,"U,J",mg/L,, ,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,2/5/19 10:15,0.04,U,mg/L,, ,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,3/5/19 11:00,0.04,U,mg/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,4/2/19 10:40,0.04,J,mg/L,,Raining; lots of algae matts present,Yes,Overcast,3,G,Yes,SDWRF,Ambient
@@ -231,20 +231,20 @@ EL7.1EC,,Ammonia Nitrogen,3/3/20 8:45,0.04,U,mg/L,,Green floc algae present,No,O
 EL7.1EC,,Ammonia Nitrogen,5/12/20 9:30,0.04,U,mg/L,,"low flow; due to COVID-19 safety constraints, only the Nutrient Loading sites were sampled in May 2020",No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,6/9/20 9:50,0.05,,mg/L,,"Murky water; due to COVID-19 safety constraints, only the Nutrient Loading sites were sampled in May 2020",No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,7/7/20 8:25,0.12,,mg/L,,Murky Water,Yes,Partly Cloudy,2,G,Yes,SDWRF,Ambient
-EL7.1EC,,Ammonia Nitrogen,8/4/20 8:25,0.05,,mg/L,,Heavy rains overnight from hurricane.,Yes,Partly Clouded,4,G,Yes,SDWRF,Ambient
+EL7.1EC,,Ammonia Nitrogen,8/4/20 8:25,0.05,,mg/L,,Heavy rains overnight from hurricane.,Yes,Partly Cloudy,4,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,9/1/20 8:50,0.04,U,mg/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,10/6/20 8:45,0.04,"U,J2",mg/L,,Duplicate Site Duplicate,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,10/6/20 8:45,0.04,"U,J2",mg/L,,Duplicate Site Duplicate,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,11/3/20 8:25,0.04,"U,J2",mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,12/1/20 8:20,0.04,U,mg/L,, ,Yes,Sunny,3,G,Yes,SDWRF,Ambient
-EL7.1EC,,Ammonia Nitrogen,1/5/21 9:55,0.04,U,mg/L,, ,No,overcast,3,G,Yes,SDWRF,Ambient
+EL7.1EC,,Ammonia Nitrogen,1/5/21 9:55,0.04,U,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,2/2/21 10:20,0.04,U,mg/L,, ,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,4/6/21 9:40,0.04,"J,J2",mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,5/4/21 9:30,0.13,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,5/4/21 9:30,0.13,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,6/1/21 9:20,0.1,,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
-EL7.1EC,,Ammonia Nitrogen,7/6/21 9:30,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
-EL7.1EC,,Ammonia Nitrogen,8/3/21 9:20,0.04,U,mg/L,,Light rain,No,overcast,3,G,Yes,SDWRF,Ambient
+EL7.1EC,,Ammonia Nitrogen,7/6/21 9:30,0.04,U,mg/L,, ,No,sunny,3,G,Yes,SDWRF,Ambient
+EL7.1EC,,Ammonia Nitrogen,8/3/21 9:20,0.04,U,mg/L,,Light rain,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,9/7/21 9:30,0.04,U,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,10/12/21 10:10,0.04,U,mg/L,, ,No,Overcast,2,G,Yes,SDWRF,Ambient
 EL7.1EC,,Ammonia Nitrogen,11/2/21 9:25,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
@@ -273,7 +273,7 @@ EL7.1SEC,,Ammonia Nitrogen,4/2/19 11:00,0.24,,mg/L,,Algae present,Yes,Overcast,3
 EL7.1SEC,,Ammonia Nitrogen,5/7/19 10:35,0.38,,mg/L,, ,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Ammonia Nitrogen,6/5/19 10:35,0.19,,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Ammonia Nitrogen,7/9/19 10:15,0.07,,mg/L,,Duplicate Site Duplicate,Yes,Overcast,3,G,Yes,SDWRF,Ambient
-EL7.1SEC,,Ammonia Nitrogen,7/9/19 10:15,0.06,,mg/L,,Duplicate Site Duplicate,Yes,overcast,3,G,Yes,SDWRF,Ambient
+EL7.1SEC,,Ammonia Nitrogen,7/9/19 10:15,0.06,,mg/L,,Duplicate Site Duplicate,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Ammonia Nitrogen,8/6/19 10:05,0.04,U,mg/L,, ,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Ammonia Nitrogen,9/3/19 10:35,0.05,,mg/L,,very stagnant water,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Ammonia Nitrogen,10/1/19 10:45,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
@@ -318,7 +318,7 @@ EL8.1GC,,Ammonia Nitrogen,2/14/17 9:10,0.04,J,mg/L,,Duplicate Site Duplicate,No,
 EL8.1GC,,Ammonia Nitrogen,3/14/17 9:00,0.1,,mg/L,, ,Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,4/11/17 8:30,0.13,,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,5/16/17 8:25,0.1,,mg/L,,Merky water upstream,No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
-EL8.1GC,,Ammonia Nitrogen,6/13/17 7:51,0.11,,mg/L,, ,No,Partly Clouded,2,G,Yes,SDWRF,Ambient
+EL8.1GC,,Ammonia Nitrogen,6/13/17 7:51,0.11,,mg/L,, ,No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,7/11/17 8:45,0.17,,mg/L,, ,Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,8/15/17 8:35,0.13,J7,mg/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,9/12/17 9:05,0.22,,mg/L,, ,Yes,Overcast,2,G,Yes,SDWRF,Ambient
@@ -347,7 +347,7 @@ EL8.1GC,,Ammonia Nitrogen,6/1/21 8:15,0.25,,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambie
 EL8.1GC,,Ammonia Nitrogen,7/6/21 8:15,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,8/3/21 8:20,0.29,,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,9/7/21 8:25,0.04,U,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
-EL8.1GC,,Ammonia Nitrogen,10/12/21 8:50,0.04,U,mg/L,,Duplicate Site Duplicate,No,Sun,3,G,Yes,SDWRF,Ambient
+EL8.1GC,,Ammonia Nitrogen,10/12/21 8:50,0.04,U,mg/L,,Duplicate Site Duplicate,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,10/12/21 8:50,0.07,,mg/L,,Duplicate Site Duplicate,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,11/2/21 8:15,0.14,,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.1GC,,Ammonia Nitrogen,12/7/21 8:20,0.04,U,mg/L,,"Heavy leaf litter in stream, high tannins",No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
@@ -396,7 +396,7 @@ EL8.5SEC,,Ammonia Nitrogen,9/7/21 10:00,0.05,,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Amb
 EL8.5SEC,,Ammonia Nitrogen,10/12/21 10:45,0.04,U,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL8.5SEC,,Ammonia Nitrogen,11/2/21 9:55,0.04,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.5SEC,,Ammonia Nitrogen,12/7/21 10:30,0.04,U,mg/L,,"Heavy leaf littler, high tannins",No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
-EL8.6SECUT,,Ammonia Nitrogen,1/19/17 9:00,0.22,,mg/L,,Duplicate Site Duplicate,Yes,Suny,2,G,Yes,SDWRF,Ambient
+EL8.6SECUT,,Ammonia Nitrogen,1/19/17 9:00,0.22,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,1/19/17 9:00,0.21,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,2/14/17 8:45,3.71,,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,3/14/17 8:40,0.08,,mg/L,, ,Yes,Overcast,2,G,Yes,SDWRF,Ambient
@@ -423,7 +423,7 @@ EL8.6SECUT,,Ammonia Nitrogen,9/3/19 8:15,0.04,U,mg/L,,Duplicate,,,,,,,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,9/3/19 8:15,0.06,,mg/L,,Duplicate,,,,,,,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,10/1/19 8:20,0.04,U,mg/L,, ,No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,11/5/19 8:15,0.12,,mg/L,,"Some suspended debris in sample bottles floating crud""""",No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
-EL8.6SECUT,,Ammonia Nitrogen,12/3/19 8:15,0.05,,mg/L,,Murky water,No,Sunny,3,G,Yes,SDWRF,Ambient
+EL8.6SECUT,,Ammonia Nitrogen,12/3/19 8:15,NA,,mg/L,,Murky water,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,1/7/20 8:35,0.06,,mg/L,,Duplicate Site Duplicate,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,1/7/20 8:35,0.07,,mg/L,,Duplicate Site Duplicate,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,2/4/20 8:25,0.07,,mg/L,, ,No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
@@ -432,7 +432,7 @@ EL8.6SECUT,,Ammonia Nitrogen,7/7/20 8:10,0.07,,mg/L,, ,Yes,Partly Cloudy,2,G,Yes
 EL8.6SECUT,,Ammonia Nitrogen,8/4/20 8:05,0.06,,mg/L,,Heavy rains overnight from hurricane.,Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,9/1/20 8:25,0.04,J,mg/L,,Duplicate Site Duplicate,Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,9/1/20 8:25,0.04,J,mg/L,,Duplicate Site Duplicate,Yes,Overcast,2,G,Yes,SDWRF,Ambient
-EL8.6SECUT,,Ammonia Nitrogen,10/6/20 8:15,0.06,J2,mg/L,, ,No,sunny,2,G,Yes,SDWRF,Ambient
+EL8.6SECUT,,Ammonia Nitrogen,10/6/20 8:15,0.06,J2,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,11/3/20 8:10,0.05,J2,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,12/1/20 8:05,0.04,J,mg/L,, ,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.6SECUT,,Ammonia Nitrogen,4/6/21 8:00,0.06,J2,mg/L,,Grass clippings and debris in samples,No,Sunny,3,G,Yes,SDWRF,Ambient
@@ -663,7 +663,7 @@ EL7.1EC,,Biochemical Oxygen Demand,8/4/20 8:25,4.4,,mg/L,,Heavy rains overnight 
 EL7.1EC,,Biochemical Oxygen Demand,9/1/20 8:50,4.5,,mg/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,10/6/20 8:45,2,U,mg/L,,Duplicate Site Duplicate,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,10/6/20 8:45,2,U,mg/L,,Duplicate Site Duplicate,No,Sunny,3,G,Yes,SDWRF,Ambient
-EL7.1EC,,Biochemical Oxygen Demand,11/3/20 8:25,2,U,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
+EL7.1EC,,Biochemical Oxygen Demand,11/3/20 8:25,NA,U,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,12/1/20 8:20,2,U,mg/L,, ,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,1/5/21 9:55,2,U,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,2/2/21 10:20,2,U,mg/L,, ,Yes,Sunny,3,G,Yes,SDWRF,Ambient
@@ -672,7 +672,7 @@ EL7.1EC,,Biochemical Oxygen Demand,4/6/21 9:40,2,U,mg/L,, ,No,Sunny,3,G,Yes,SDWR
 EL7.1EC,,Biochemical Oxygen Demand,5/4/21 9:30,4.2,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,5/4/21 9:30,3.7,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,6/1/21 9:20,2,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
-EL7.1EC,,Biochemical Oxygen Demand,7/6/21 9:30,NA,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
+EL7.1EC,,Biochemical Oxygen Demand,7/6/21 9:30,2,U,mg/L,, ,No,Sunny,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,8/3/21 9:20,2,U,mg/L,,Light rain,No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,9/7/21 9:30,2,U,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL7.1EC,,Biochemical Oxygen Demand,10/12/21 10:10,2,U,mg/L,, ,No,Overcast,2,G,Yes,SDWRF,Ambient
@@ -746,7 +746,7 @@ EL7.9EC,,Biochemical Oxygen Demand,12/5/17 10:45,2,U,mg/L,,Staff Gage: 1.34',No,
 EL8.1GC,,Biochemical Oxygen Demand,1/19/17 9:25,2,U,mg/L,, ,Yes,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Biochemical Oxygen Demand,2/14/17 9:10,2,U,mg/L,,Duplicate Site Duplicate,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Biochemical Oxygen Demand,2/14/17 9:10,2,U,mg/L,,Duplicate Site Duplicate,No,Sunny,2,G,Yes,SDWRF,Ambient
-EL8.1GC,,Biochemical Oxygen Demand,3/14/17 9:00,NA,,mg/L,, ,Yes,Overcast,2,G,Yes,SDWRF,Ambient
+EL8.1GC,,Biochemical Oxygen Demand,3/14/17 9:00,6,,mg/L,, ,Yes,Overcast,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Biochemical Oxygen Demand,4/11/17 8:30,2.2,,mg/L,, ,No,Sunny,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Biochemical Oxygen Demand,5/16/17 8:25,2,U,mg/L,,Merky water upstream,No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
 EL8.1GC,,Biochemical Oxygen Demand,6/13/17 7:51,2,U,mg/L,, ,No,Partly Cloudy,2,G,Yes,SDWRF,Ambient
@@ -812,7 +812,7 @@ EL8.5SEC,,Biochemical Oxygen Demand,2/5/19 10:55,2,U,mg/L,, ,No,Partly Cloudy,3,
 EL8.5SEC,,Biochemical Oxygen Demand,3/5/19 11:36,2,U,mg/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL8.5SEC,,Biochemical Oxygen Demand,4/2/19 11:20,2,U,mg/L,,Raining,Yes,Overcast,3,G,Yes,SDWRF,Ambient
 EL8.5SEC,,Biochemical Oxygen Demand,5/7/19 10:50,2,U,mg/L,, ,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
-EL8.5SEC,,Biochemical Oxygen Demand,6/5/19 10:55,2,U,mg/L,, ,No,Overcast,3,G,Yes,SDWRF,Ambient
+EL8.5SEC,,Biochemical Oxygen Demand,6/5/19 10:55,2,U,mg/L,, ,No,overcast,3,G,Yes,SDWRF,Ambient
 EL8.5SEC,,Biochemical Oxygen Demand,7/9/19 10:35,2,U,mg/L,, ,Yes,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL8.5SEC,,Biochemical Oxygen Demand,8/6/19 10:40,3.8,,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
 EL8.5SEC,,Biochemical Oxygen Demand,8/6/19 10:40,2,U,mg/L,,Duplicate Site Duplicate,Yes,Sunny,3,G,Yes,SDWRF,Ambient
@@ -1136,10 +1136,10 @@ EL7.1SEC,,Calcium,6/13/17 10:40,17470,,ug/L,,Staff Gage: 1.49',No,Partly Cloudy,
 EL7.1SEC,,Calcium,7/11/17 11:15,26090,,ug/L,,Staff Gage: 1.33',Yes,Sunny,2,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Calcium,8/15/17 11:15,12982,,ug/L,,Staff Gage: 1.42' Duplicate Site Duplicate,Yes,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Calcium,8/15/17 11:15,13210,,ug/L,,Staff Gage: 1.42' Duplicate Site Duplicate,Yes,Partly Cloudy,3,G,Yes,SDWRF,Ambient
-EL7.1SEC,,Calcium,9/12/17 11:10,19688,,ug/L,,Staff Gage: 1.82,Yes,Overcast,1,G,Yes,SDWRF,Ambient
+EL7.1SEC,,Calcium,9/12/17 11:10,19688,,ug/L,,Staff Gage: 1.82,Yes,outcast,1,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Calcium,10/10/17 11:10,10242,,ug/L,,Staff Gage: 1.42',Yes,Partly Cloudy,2,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Calcium,11/7/17 11:10,13930,,ug/L,,Staff Gage: 1.45',No,Overcast,2,G,Yes,SDWRF,Ambient
-EL7.1SEC,,Calcium,12/5/17 11:30,30050,,ug/L,,Staff Gage: 1.38',No,Overcast,3,G,Yes,SDWRF,Ambient
+EL7.1SEC,,Calcium,12/5/17 11:30,NA,,ug/L,,Staff Gage: 1.38',No,Overcast,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Calcium,1/8/19 11:15,44519,,ug/L,, ,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Calcium,2/5/19 10:35,49471,,ug/L,, ,No,Partly Cloudy,3,G,Yes,SDWRF,Ambient
 EL7.1SEC,,Calcium,3/5/19 11:20,31695,,ug/L,, ,Yes,Overcast,3,G,Yes,SDWRF,Ambient

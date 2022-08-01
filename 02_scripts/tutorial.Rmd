@@ -20,7 +20,8 @@ First, you need to set up your environment. This involves installing and loading
 
 ```{r load libraries}
 
-pacman::p_load(tidyverse)
+pacman::p_load(tidyverse, lubridate)
+setwd(dirname(rstudioapi::documentPath()))
 
 ```
 
@@ -32,6 +33,7 @@ Now that you've loaded all the libraries we need, the next step is to load any d
 
 # data.dir <- "~/your/data/directory/here/" #change this to match the folder where the data is stored
 data.dir <- "../01_data"
+meta.dir <- "../00_meta"
 
 file.name <- "durham_data_tutorial_version.csv"
 file <- file.path(data.dir, file.name)
@@ -86,9 +88,9 @@ Now we have the data we need saved in 'data', and the metadata stored in 'meta'.
 
 ```{r save metadata}
 
-file.name <- 'metadata.txt'
-file <- file.path(data.dir, file.name)
-write.table(meta, file=file, row.names=FALSE, col.names=FALSE)
+meta.file.name <- 'metadata.txt'
+meta.file <- file.path(meta.dir, file.name)
+write.table(meta, file=meta.file, row.names=FALSE, col.names=FALSE)
 
 ```
 
@@ -182,6 +184,24 @@ any( is.na(data$Value) )
 ```
 
 
+### DATA FORMAT
+
+JB to add comments..............
+
+```{r}
+data_wide <- data %>%
+  dplyr::select(Station.Name, Date.Time, Parameter, Value) %>%
+  group_by(Station.Name, Date.Time) %>%
+  distinct(Station.Name, Date.Time, Parameter, .keep_all=TRUE) %>%
+  pivot_wider(names_from=Parameter, values_from=Value) %>% 
+  mutate(Date = as.Date(Date.Time, format="%m/%d/%y"),
+         Year = year(Date),
+         Date = as.POSIXct.Date(Date)) %>%
+  relocate(Date, Year, .after=Date.Time) %>%
+  ungroup()
+
+```
+
 
 
 
@@ -196,23 +216,45 @@ Now let's visualize some of this data! Through visualizations, we can take compl
 ### Time Series Plots and Analysis
 Starting with the basics, we can think about this dataset as a time series and plot a given analyte against time. 
 
+Let's see how concentrations of X changes over time. We can color the points based on the site where the sample was taken.
+
 ```{r}
-# Let's see how concentrations of X changes over time. We can color the points based on the site where the sample was taken.
-
 # JB TO INSERT CODE
 
-# Cool, we can see how the concentration varies overtime, but it's hard to tell how variation throughout the year differs between sites. So let's look at a boxplot of this data! 
-
-# JB TO INSERT CODE 
-
-# Let's get fancy and separate this out by year. Maybe there's a difference between years? 
-
-# JB TO INSERT CODE
-
-# Try doing the same visualizations now, but with a different variable. Make sure you use the exact name of the variable as it is found in the dataset!
+ggplot() +
+  geom_point(data=data_wide, mapping=aes(x=Date, y=Calcium)) +
+  theme_classic()
 
 
 ```
+
+Cool, we can see how the concentration varies overtime, but it's hard to tell how variation throughout the year differs between sites. So let's look at a boxplot of this data!
+
+```{r}
+
+ggplot(data=data_wide, mapping=aes(x=Date, y=Calcium, color=Station.Name,
+                                         group=Station.Name)) +
+  geom_point() + geom_line() +
+  scale_x_datetime(date_breaks="1 year", date_labels="%Y") +
+  theme_classic()
+  
+
+```
+
+Let's get fancy and separate this out by year. Maybe there's a difference between years?
+
+```{r}
+
+ggplot(data=data_wide, mapping=aes(x=Station.Name, y=Calcium, fill=Station.Name)) +
+  geom_boxplot() + 
+  theme_classic() #+
+  # facet_wrap(~Year)
+
+
+
+```
+Try doing the same visualizations now, but with a different variable. Make sure you use the exact name of the variable as it is found in the dataset!
+
 
 ### Exploring What Drives Variation Between Sites
 
@@ -229,8 +271,11 @@ A note about this dataset: This second dataset is a sampling blitz of ~34 sites 
 
 Okay lets try some simple, but cool, statistics. There are two ions that were measured in this dataset that might be familiar: Na and Cl. That's table salt! Turns out it is also what we put on our roads in the winter to de-ice. That said, perhaps the concentrations of both maybe are closely coorelated since they come from the same source? Let's find out! 
 
-```{r}
+```{r correlations}
 # Let's calculate the coorelation between Na and Cl. The closer to 1, the higher the coorelation. 0 is no coorelation.
+
+# cor(data_wide, Calcium, Conductivity)
+GGally::ggpairs(data_wide %>% dplyr::select(Calcium, Conductivity, Copper))
 
 # JB TO INSERT CODE
 
