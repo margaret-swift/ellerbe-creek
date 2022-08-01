@@ -19,76 +19,87 @@ Welcome to the Ellerbe Creek Cleanup Tutorial! To download this file and follow 
 First, you need to set up your environment. This involves installing and loading any libraries that you need to run the code for this module. To run a block of code, click the green arrow in the top right of the gray box below. 
 
 ```{r load libraries}
+# Load libraries (which have all the important functions). 
+# The first line of code only needs to be ran once! Run it by removing the "#" before clicking the play button
 
+#install.packages("pacman")
 pacman::p_load(tidyverse, lubridate)
+
+# Ensure the computer knows where to look for your files
 setwd(dirname(rstudioapi::documentPath()))
 
 ```
 
 ### Load your data
 
-Now that you've loaded all the libraries we need, the next step is to load any data for this project. Replace the below code with the location of the dataset in your own file structure.
+Now that you've loaded all the libraries we need, the next step is to load all data for this project.
 
 ```{r load data}
+# This tells R to look for the folders and then giving them a name
+data.dir <- "../01_data" # This folder has all the data
+meta.dir <- "../00_meta" # This folder has all the meta data
 
-# data.dir <- "~/your/data/directory/here/" #change this to match the folder where the data is stored
-data.dir <- "../01_data"
-meta.dir <- "../00_meta"
-
+# Do this for each dataset, to load it in
 file.name <- "durham_data_tutorial_version.csv"
 file <- file.path(data.dir, file.name)
-data <- read.csv(file)
+durham_data <- read.csv(file)
 
 ```
 
 
-
-
 # SECTION 02: Why R?
 
+### Reproducibility
+By working in R, we have a record of every change or calculation we did on a dataset. This is very important so your work can be repeated by others. Also so you can repeat it if you find you accidentally made a mistake!
 
-
+### Open Source = Accessible
+R is open source. That means it is free and will likely always be! That means anyone can use your code and run it without paying anything for a software. This makes your work accessible to many.
 
 
 
 # SECTION 03: Cleaning Up
 
 
-### Open the data and take a look
+### Open the durham_data and take a look
 
-Now, back to the dataset at hand. Did you know that you can view data in R just like you do in Excel? Using the View() command, you can view the dataset like a spreadsheet. Try it out:
+Now, back to the dataset at hand. Did you know that you can view data in R just like you do in Excel? Using the `View()` command, you can view the dataset like a spreadsheet. The `head()` function will show you just the top of the table (so it isn't too overwhelming). Try it out:
 
-```{r view data, eval=FALSE}
+```{r view durham_data, eval=FALSE}
 
-View(data)
-
-```
-
-```{r head data}
-
-head(data)
+print(durham_data)
 
 ```
 
-Wait a minute, that's not right. What's going on? Sometimes, inappropriate metadata is stored within a .csv file. CSV, or comma-separated values, should only have data in them. If you open this spreadsheet in Excel, you will see that there is a set of data on top of the original that gives valuable metadata on the collection. We want to preserve this data, as it is important, but in a more appropriate way. An easy way to do this is to read the data in three parts. Once, to grab the metadata; second, to grab the column headers; third, to grab the actual data:
 
-```{r fix metadata}
+Wait a minute, that's not right. What's going on? Maybe `head()` will work?
 
-# load the metadata separately using "readLines"
-meta <- readLines( file, n=10 ) #metadata stops on row 10
+```{r head durham_data}
+
+head(durham_data)
+
+```
+
+Darn it is still being odd. Welcome to the fun of coding!
+
+Sometimes, inappropriate metadata is stored within a .csv file. CSV, or comma-separated values, should only have data in them. If you open this spreadsheet in Excel, you will see that there is a set of data on top of the original that gives valuable metadata on the collection. We want to preserve this data, as it is important, but in a more appropriate way. An easy way to do this is to read the data in three parts. Once, to grab the metadata; second, to grab the column headers; third, to grab the actual data:
+
+```{r fix metadurham_data}
+
+# load the metadurham_data separately using "readLines"
+meta <- readLines( file, n=10) # metadurham_data stops on row 10
 meta <- paste( gsub(',', '', meta), collapse="\n") #format better for viewing by removing errant commas
-message(meta)
+print(meta)
 
-# now load the data
-data <- read.csv(file, skip=12, row.names=NULL) #data is on row 12+
-head(data)
+# now load the durham_data
+durham_data <- read.csv(file, skip=12, row.names=NULL) #durham_data is on row 12+
+head(durham_data)
 ```
 
-Now we have the data we need saved in 'data', and the metadata stored in 'meta'. Let's save the metadata into a new file (NOT overwriting the raw data).
+Now we have the durham_data we need saved in 'durham_data', and the metadurham_data stored in 'meta'. Let's save the metadurham_data into a new file (NOT overwriting the raw durham_data).
 
-```{r save metadata}
+```{r save metadurham_data}
 
-meta.file.name <- 'metadata.txt'
+meta.file.name <- 'metadurham_data.txt'
 meta.file <- file.path(meta.dir, file.name)
 write.table(meta, file=meta.file, row.names=FALSE, col.names=FALSE)
 
@@ -102,37 +113,41 @@ For data cleaning, we're going to cover three main issues: (1) Inconsistent Data
 
 Now we are ready to look at the real data! It can be helpful at first to look at the "unique" data values for each column, to get a sense of what you're working with. Let's start with "Sky.Condition"
 
-```{r explore data with multiple spellings}
+```{r explore durham_data with multiple spellings}
+sky_condition<-durham_data %>% 
+  group_by(Sky.Condition) %>% 
+  count() %>% 
+  arrange(desc(n))
 
-sort( unique( data$Sky.Condition ) )
+print(sky_condition)
 
 ```
 
-Ah, it looks like somebody had some inconsistancies with spellings. 
+Ah, it looks like somebody had some inconsistencies with spellings. 
 
 ```{r}
 
 # First, make everything in the column lowercase 'tolower()' to make your life easier
 
-data <- data %>%
+durham_data <- durham_data %>%
   mutate(Sky.Condition = tolower( Sky.Condition ))
 
-sort( unique( data$Sky.Condition ) )
+sort( unique( durham_data$Sky.Condition ) )
 
-data <- data %>%
+durham_data <- durham_data %>%
   mutate(Sky.Condition = tolower( Sky.Condition ))
 
 ```
 
 
 
-### DUPLICATE DATA
+### DUPLICATE durham_data
  
 ```{r find duplicates}
 
-# find rows with "duplicate" in the comments, then create a new data frame just with those.
-inx.dup <- which( grepl( 'duplicate', tolower(data$Comments) ) ) 
-dupes <- data[inx.dup,] 
+# find rows with "duplicate" in the comments, then create a new durham_data frame just with those.
+inx.dup <- which( grepl( 'duplicate', tolower(durham_data$Comments) ) ) 
+dupes <- durham_data[inx.dup,] 
 head( dupes )
 
 ```
@@ -164,13 +179,13 @@ dupes$Value <- means$MeanValue
 dupes <- dupes %>% dplyr::select(-ID)
 
 # Put it all together! First, remove duplicated rows from the main data frame
-data <- data[-inx.dup,]
+durham_data <- durham_data[-inx.dup,]
 
 # Add the averaged, previously-duplicated rows to the end of the data frame
-data <- bind_rows(data, dupes) %>%
+durham_data <- bind_rows(durham_data, dupes) %>%
   arrange(Station.Name, Filtered, Parameter, Date.Time) #sort data again
 
-head(data)
+head(durham_data)
 ```
 
 
@@ -178,8 +193,8 @@ head(data)
 ### MISSING DATA
 
 ```{r}
-summary( data$Value )
-any( is.na(data$Value) )
+summary( durham_data$Value )
+any( is.na(durham_data$Value) )
 
 ```
 
@@ -189,7 +204,7 @@ any( is.na(data$Value) )
 JB to add comments..............
 
 ```{r}
-data_wide <- data %>%
+durham_data_wide <- durham_data %>%
   dplyr::select(Station.Name, Date.Time, Parameter, Value) %>%
   group_by(Station.Name, Date.Time) %>%
   distinct(Station.Name, Date.Time, Parameter, .keep_all=TRUE) %>%
@@ -222,7 +237,7 @@ Let's see how concentrations of X changes over time. We can color the points bas
 # JB TO INSERT CODE
 
 ggplot() +
-  geom_point(data=data_wide, mapping=aes(x=Date, y=Calcium)) +
+  geom_point(data=durham_data_wide, mapping=aes(x=Date, y=Calcium)) +
   theme_classic()
 
 
@@ -232,7 +247,7 @@ Cool, we can see how the concentration varies overtime, but it's hard to tell ho
 
 ```{r}
 
-ggplot(data=data_wide, mapping=aes(x=Date, y=Calcium, color=Station.Name,
+ggplot(data=durham_data_wide, mapping=aes(x=Date, y=Calcium, color=Station.Name,
                                          group=Station.Name)) +
   geom_point() + geom_line() +
   scale_x_datetime(date_breaks="1 year", date_labels="%Y") +
@@ -245,7 +260,7 @@ Let's get fancy and separate this out by year. Maybe there's a difference betwee
 
 ```{r}
 
-ggplot(data=data_wide, mapping=aes(x=Station.Name, y=Calcium, fill=Station.Name)) +
+ggplot(data=durham_data_wide, mapping=aes(x=Station.Name, y=Calcium, fill=Station.Name)) +
   geom_boxplot() + 
   theme_classic() #+
   # facet_wrap(~Year)
@@ -262,10 +277,15 @@ Why, you might ask, is there variation between the sites? What might be causing 
 
 A note about this dataset: This second dataset is a sampling blitz of ~34 sites in the same stream, conducted seasonally at 3 different points. There are strengths (and weaknesses) to each dataset. Durham's dataset gives us many years (weekly to monthly samples) but only at a few sites. Whereas the Synoptic dataset gives us many sites (~34!) but only at 3 points in time (different seasons).
 
-``` {r}
-# Load in the Synoptic dataset here 
 
-# Check it out, see if there's any weird quirks that need to be cleaned
+
+``` {r}
+# Do this for each dataset
+file.name <- "synoptic_data_tutorial_version.csv"
+file <- file.path(data.dir, file.name)
+synoptic_data <- read.csv(file)
+
+# Check it out, see if there's any weird quirks that need to be cleaned!
 
 ```
 
