@@ -21,7 +21,8 @@ Before we start, you need to set up your "environment." This involves installing
 
 ```{r load libraries}
 # Load libraries (which have all the important functions). 
-# The first line of code only needs to be ran once to load the package that has the p_load function! Run it by removing the "#" before clicking the play button
+# The first line of code only needs to be ran once to load the package that 
+# has the p_load function! Run it by removing the "#" before clicking the play button
 
 #install.packages("pacman")
 pacman::p_load(tidyverse, lubridate)
@@ -35,7 +36,7 @@ setwd(dirname(rstudioapi::documentPath()))
 
 Now that you've loaded all the libraries we need, the next step is to load all data for this project.
 
-Notice that we are defining various variables. The following "a <- 3" means that we are assigning the variable "a" the number 3. You can do this with numbers, text, and datasets, you name it!
+Notice that we are defining various variables. The following `a <- 3` means that we are telling R that we want the variable `a` to equal the number 3 (we call this "assigning a variable"). You can do this with numbers, text, and datasets, you name it!
 
 ```{r load data}
 # This tells R to look for the folders and then giving them a name
@@ -81,9 +82,9 @@ Sometimes, inappropriate metadata is stored within a .csv file. CSV, or comma-se
 
 ```{r fix metadurham_data}
 
-# load the metadurham_data separately using "readLines"
-meta <- readLines( file, n=10) # metadurham_data stops on row 10
-meta <- paste( gsub(',', '', meta), collapse="\n") #format better for viewing by removing errant commas
+# load the metadata (extra data at the top of the file) separately using "readLines"
+meta <- readLines( file, n=10) # the metadata stops on row 10
+meta <- paste( gsub(',', '', meta), collapse="\n") #remove errant commas
 print(meta)
 
 # now load the durham_data
@@ -111,9 +112,12 @@ Now we are ready to look at the real data! It can be helpful at first to look at
 
 ```{r explore durham_data with multiple spellings}
 sky_condition<-durham_data %>% 
-  group_by(Sky.Condition) %>% # group the data so all like things in "Sky.Condition" are put together
-  count() %>% # counts the number of occurances for a given type of "Sky Condition" 
-  arrange(desc(n)) # arranges the rows by highest to lowest value of "n"
+  # group the data so all like things in "Sky.Condition" are put together
+  group_by(Sky.Condition) %>% 
+  # count the number of occurances for a given type of "Sky Condition" 
+  count() %>% 
+  # arrange the rows by highest to lowest value of "n"
+  arrange(desc(n)) 
 
 print(sky_condition) # shows the result!
 
