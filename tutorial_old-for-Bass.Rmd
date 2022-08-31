@@ -1,0 +1,316 @@
+---
+title: "Ellerbe Creek Cleanup Tutorial"
+author: "Margaret Swift, Jonathan Behrens"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  prettydoc::html_pretty:
+    toc: true
+    df_print: kable
+---
+
+# Welcome!
+
+Welcome to the Ellerbe Creek Cleanup Tutorial! To download this file and follow along, head over to our [GitHub page](https://github.com/margaret-swift/ellerbe-creek)
+
+# SECTION 01: WORKFLOW
+
+### Set up your environment
+Some basics: To run a block of code, click the green arrow in the top right of the gray box. 
+
+Before we start, you need to set up your "environment." This involves installing and loading any libraries that you need to run the code for this module. Libraries basically store a bunch of really useful functions that other people have developed to make your life easier. You can both download and load packages with the `p_load` function! 
+
+```{r load libraries}
+# Load libraries (which have all the important functions). 
+# The first line of code only needs to be ran once to load the package that has the p_load function! Run it by removing the "#" before clicking the play button
+
+#install.packages("pacman")
+pacman::p_load(tidyverse, lubridate, dataRetrieval)
+
+# Ensure the computer knows where to look for your files
+setwd(dirname(rstudioapi::documentPath()))
+
+```
+
+### Load your data
+
+Now that you've loaded all the libraries we need, the next step is to load all data for this project.
+
+Notice that we are defining various variables. The following "a <- 3" means that we are assigning the variable "a" the number 3. You can do this with numbers, text, and datasets, you name it!
+
+```{r load data}
+# This tells R to look for the folders and then giving them a name
+data.dir <- "../01_data" # This folder has all the data
+meta.dir <- "../00_meta" # This folder has all the meta data
+
+# Do this for each dataset, to load it in
+file.name <- "durham_data_tutorial_version.csv"
+file <- file.path(data.dir, file.name)
+durham_data <- read.csv(file)
+
+```
+
+
+# SECTION 02: Why R?
+
+### Reproducibility
+By working in R, we have a record of every change or calculation we did on a dataset. This is very important so your work can be repeated by others. Also so you can repeat it if you find you accidentally made a mistake!
+
+### Open Source = Accessible
+R is open source. That means it is free and will likely always be! That means anyone can use your code and run it without paying anything for a software. This makes your work accessible to many.
+
+
+
+# SECTION 03: Cleaning Up
+
+
+### Open the durham_data and take a look
+
+Now, back to the dataset at hand. Did you know that you can view data in R just like you do in Excel? Using the `View()` command, you can view the dataset like a spreadsheet. The `head()` function will show you just the top of the table (so it isn't too overwhelming). Try it out:
+
+```{r view durham_data, eval=FALSE}
+
+print(durham_data)
+
+head(durham_data)
+
+```
+
+Wait a minute, something is not right. What's going on? Welcome to the fun of coding!
+
+Sometimes, inappropriate metadata is stored within a .csv file. CSV, or comma-separated values, should only have data in them. If you open this spreadsheet in Excel, you will see that there is a set of data on top of the original that gives valuable metadata on the collection. We want to preserve this data, as it is important, but in a more appropriate way. An easy way to do this is to read the data in three parts. Once, to grab the metadata; second, to grab the column headers; third, to grab the actual data:
+
+```{r fix metadurham_data}
+
+# load the metadurham_data separately using "readLines"
+meta <- readLines( file, n=10) # metadurham_data stops on row 10
+meta <- paste( gsub(',', '', meta), collapse="\n") #format better for viewing by removing errant commas
+print(meta)
+
+# now load the durham_data
+durham_data <- read.csv(file, skip=12, row.names=NULL) #durham_data is on row 12+
+head(durham_data)
+```
+
+Now we have the durham_data we need saved in 'durham_data', and the metadurham_data stored in 'meta'. Let's save the metadurham_data into a new file (NOT overwriting the raw durham_data).
+
+```{r save metadurham_data}
+
+meta.file.name <- 'metadurham_data.txt'
+meta.file <- file.path(meta.dir, file.name)
+write.table(meta, file=meta.file, row.names=FALSE, col.names=FALSE)
+
+```
+
+
+For data cleaning, we're going to cover three main issues: (1) Inconsistent Data Entry, (2) Duplicate Rows, and (3) Missing Data.
+
+
+### INCONSISTENT DATA ENTRY
+
+Now we are ready to look at the real data! It can be helpful at first to look at the "unique" data values for each column, to get a sense of what you're working with. Let's start with "Sky.Condition"
+
+```{r explore durham_data with multiple spellings}
+sky_condition<-durham_data %>% 
+  group_by(Sky.Condition) %>% # group the data so all like things in "Sky.Condition" are put together
+  count() %>% # counts the number of occurances for a given type of "Sky Condition" 
+  arrange(desc(n)) # arranges the rows by highest to lowest value of "n"
+
+print(sky_condition) # shows the result!
+
+```
+
+Ah, it looks like somebody had some inconsistencies with spellings. 
+
+```{r}
+
+# First, make everything in the column lowercase 'tolower()' to make your life easier
+
+durham_data <- durham_data %>%
+  mutate(Sky.Condition = tolower( Sky.Condition ))
+
+sort( unique( durham_data$Sky.Condition ) )
+
+durham_data <- durham_data %>%
+  mutate(Sky.Condition = tolower( Sky.Condition ))
+
+```
+
+
+
+### DUPLICATE durham_data
+ 
+```{r find duplicates}
+
+# find rows with "duplicate" in the comments, then create a new durham_data frame just with those.
+inx.dup <- which( grepl( 'duplicate', tolower(durham_data$Comments) ) ) 
+dupes <- durham_data[inx.dup,] 
+head( dupes )
+
+```
+
+Normally, you could just get rid of duplicates using the function distinct(). distinct() simply drops the second row that is duplicated, however. Take a look at some of these values in 'dupes' -- they're not the same! When looking at your own data, you need to make decisions on how to deal with duplicate data. For now, we've decided to take the average of the two values. If you want to use just the first value, distinct() is fine; otherwise, here's how to replace duplicate values with the averages:
+
+```{r}
+
+# Create an ID row to sort on station name, filtered, parameter, and date
+dupes <- dupes %>% 
+  mutate(ID = paste0(Station.Name, Filtered, Parameter, Date.Time)) %>%
+  arrange(ID)
+
+# grab the mean values for each combination
+means <- dupes %>% 
+  group_by(ID) %>% #group dataframe by ID
+  summarize(MeanValue = mean(Value, na.rm=TRUE)) #take the mean and ignore NAs
+
+# collapse the duplicate data frame based on ID and sort it the same way
+dupes <- dupes %>% 
+  distinct(Station.Name, Filtered, Parameter, Date.Time, .keep_all=TRUE)
+
+# make sure both datasets are the same length and in the same order
+nrow(dupes) == nrow(means) && all(dupes$ID == means$ID)
+
+# Now that we're sure, replace Value column of distinct dupes with mean values 
+# and remove the ID column
+dupes$Value <- means$MeanValue
+dupes <- dupes %>% dplyr::select(-ID)
+
+# Put it all together! First, remove duplicated rows from the main data frame
+durham_data <- durham_data[-inx.dup,]
+
+# Add the averaged, previously-duplicated rows to the end of the data frame
+durham_data <- bind_rows(durham_data, dupes) %>%
+  arrange(Station.Name, Filtered, Parameter, Date.Time) #sort data again
+
+head(durham_data)
+```
+
+
+
+### MISSING DATA
+
+```{r}
+summary( durham_data$Value )
+any( is.na(durham_data$Value) )
+
+```
+
+
+### DATA FORMAT
+
+JB to add comments..............
+
+```{r}
+durham_data_wide <- durham_data %>%
+  dplyr::select(Station.Name, Date.Time, Parameter, Value) %>%
+  group_by(Station.Name, Date.Time) %>%
+  distinct(Station.Name, Date.Time, Parameter, .keep_all=TRUE) %>%
+  pivot_wider(names_from=Parameter, values_from=Value) %>% 
+  mutate(Date = as.Date(Date.Time, format="%m/%d/%y"),
+         Year = year(Date),
+         Date = as.POSIXct.Date(Date)) %>%
+  relocate(Date, Year, .after=Date.Time) %>%
+  ungroup()
+
+```
+
+
+
+
+
+
+
+
+# SECTION 04: Visualization and Analysis
+
+Now let's visualize some of this data! Through visualizations, we can take complex or large datasets and simplify them to look for trends. That in turn can help guide our analysis or direct us towards interesting and new questions. 
+
+### Time Series Plots and Analysis
+Starting with the basics, we can think about this dataset as a time series and plot a given analyte against time. 
+
+Let's see how concentrations of X changes over time. We can color the points based on the site where the sample was taken.
+
+```{r}
+# JB TO INSERT CODE
+
+ggplot() +
+  geom_point(data=durham_data_wide, mapping=aes(x=Date, y=Calcium)) +
+  theme_classic()
+
+
+```
+
+Cool, we can see how the concentration varies overtime, but it's hard to tell how variation throughout the year differs between sites. So let's look at a boxplot of this data!
+
+```{r}
+
+ggplot(data=durham_data_wide, mapping=aes(x=Date, y=Calcium, color=Station.Name,
+                                         group=Station.Name)) +
+  geom_point() + geom_line() +
+  scale_x_datetime(date_breaks="1 year", date_labels="%Y") +
+  theme_classic()
+  
+
+```
+
+Let's get fancy and separate this out by year. Maybe there's a difference between years?
+
+```{r}
+
+ggplot(data=durham_data_wide, mapping=aes(x=Station.Name, y=Calcium, fill=Station.Name)) +
+  geom_boxplot() + 
+  theme_classic() #+
+  # facet_wrap(~Year)
+
+
+
+```
+Try doing the same visualizations now, but with a different variable. Make sure you use the exact name of the variable as it is found in the dataset!
+
+
+### Exploring What Drives Variation Between Sites
+
+Why, you might ask, is there variation between the sites? What might be causing that? Let's explore that further with a new dataset! This is a great opportunity to practice loading in the dataset and then doing a few new visualizations. We made it easier on you by cleaning up the dataset, but still check it out to make sure there aren't any quirks that will harm your work.
+
+A note about this dataset: This second dataset is a sampling blitz of ~34 sites in the same stream, conducted seasonally at 3 different points. There are strengths (and weaknesses) to each dataset. Durham's dataset gives us many years (weekly to monthly samples) but only at a few sites. Whereas the Synoptic dataset gives us many sites (~34!) but only at 3 points in time (different seasons).
+
+
+
+``` {r}
+# Do this for each dataset
+file.name <- "synoptic_data_tutorial_version.csv"
+file <- file.path(data.dir, file.name)
+synoptic_data <- read.csv(file)
+
+# Check it out, see if there's any weird quirks that need to be cleaned!
+
+```
+
+Okay lets try some simple, but cool, statistics. There are two ions that were measured in this dataset that might be familiar: Na and Cl. That's table salt! Turns out it is also what we put on our roads in the winter to de-ice. That said, perhaps the concentrations of both maybe are closely coorelated since they come from the same source? Let's find out! 
+
+```{r correlations}
+# Let's calculate the coorelation between Na and Cl. The closer to 1, the higher the coorelation. 0 is no coorelation.
+
+# cor(data_wide, Calcium, Conductivity)
+#GGally::ggpairs(data_wide %>% dplyr::select(Calcium, Conductivity, Copper))
+
+# JB TO INSERT CODE
+
+# Now let's visualize it! Is it well coorelated across values? Maybe it is closely coorelated for smaller values vs. large values; or maybe it doesn't matter the concentration. Let's find out.
+
+# JB TO INSERT CODE 
+
+```
+
+Now explore it for yourself for other compounds! 
+
+While you are at it, you could also start to explore some other measures taken alongside this dataset. You'll see all the lovely chemistry data, but there is also socioeconomic data. Is there a coorelation between the density of roads and Na & Cl (since that's probably the main source of these salts)? What other hypotheses do you have? Check out this site for some ideas :D (INSERT LINK TO DATA+ SITE, PARAMATER PAGE).
+
+```{r}
+# Try doing the same visualizations now, but with different variables. Make sure you use the exact name of the variable as it is found in the dataset!
+
+
+```
+
+
+
+# SECTION 05: Conclusion
