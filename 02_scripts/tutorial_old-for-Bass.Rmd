@@ -21,8 +21,7 @@ Before we start, you need to set up your "environment." This involves installing
 
 ```{r load libraries}
 # Load libraries (which have all the important functions). 
-# The first line of code only needs to be ran once to load the package that 
-# has the p_load function! Run it by removing the "#" before clicking the play button
+# The first line of code only needs to be ran once to load the package that has the p_load function! Run it by removing the "#" before clicking the play button
 
 #install.packages("pacman")
 pacman::p_load(tidyverse, lubridate, dataRetrieval)
@@ -36,7 +35,7 @@ setwd(dirname(rstudioapi::documentPath()))
 
 Now that you've loaded all the libraries we need, the next step is to load all data for this project.
 
-Notice that we are defining various variables. The following `a <- 3` means that we are telling R that we want the variable `a` to equal the number 3 (we call this "assigning a variable"). You can do this with numbers, text, and datasets, you name it!
+Notice that we are defining various variables. The following "a <- 3" means that we are assigning the variable "a" the number 3. You can do this with numbers, text, and datasets, you name it!
 
 ```{r load data}
 # This tells R to look for the folders and then giving them a name
@@ -44,11 +43,12 @@ data.dir <- "../01_data" # This folder has all the data
 meta.dir <- "../00_meta" # This folder has all the meta data
 
 # Do this for each dataset, to load it in
-test<-file.path(data.dir, "durham_data_tutorial_version.csv") %>% # Finds file name
-  read.csv() # Reads it into R
+file.name <- "durham_data_tutorial_version.csv"
+file <- file.path(data.dir, file.name)
+durham_data <- read.csv(file)
+
 ```
 
-If you are new to R, maybe you have never seen the following before: %>%. This is called piping and is a powerful way to simplify your code and make it easier to read. Here's a wonderful [tutorial](https://medium.com/the-codehub/beginners-guide-to-piping-data-in-r-444054cbe999).
 
 # SECTION 02: Why R?
 
@@ -81,9 +81,9 @@ Sometimes, inappropriate metadata is stored within a .csv file. CSV, or comma-se
 
 ```{r fix metadurham_data}
 
-# load the metadata (extra data at the top of the file) separately using "readLines"
-meta <- readLines( file, n=10) # the metadata stops on row 10
-meta <- paste( gsub(',', '', meta), collapse="\n") #remove errant commas
+# load the metadurham_data separately using "readLines"
+meta <- readLines( file, n=10) # metadurham_data stops on row 10
+meta <- paste( gsub(',', '', meta), collapse="\n") #format better for viewing by removing errant commas
 print(meta)
 
 # now load the durham_data
@@ -111,18 +111,9 @@ Now we are ready to look at the real data! It can be helpful at first to look at
 
 ```{r explore durham_data with multiple spellings}
 sky_condition<-durham_data %>% 
-<<<<<<< HEAD
   group_by(Sky.Condition) %>% # group the data so all like things in "Sky.Condition" are put together
-  count() %>% # counts the number of occurrences for a given type of "Sky Condition" 
+  count() %>% # counts the number of occurances for a given type of "Sky Condition" 
   arrange(desc(n)) # arranges the rows by highest to lowest value of "n"
-=======
-  # group the data so all like things in "Sky.Condition" are put together
-  group_by(Sky.Condition) %>% 
-  # count the number of occurances for a given type of "Sky Condition" 
-  count() %>% 
-  # arrange the rows by highest to lowest value of "n"
-  arrange(desc(n)) 
->>>>>>> f8df9e8960052e79a71b3463023d9fc324c5c7df
 
 print(sky_condition) # shows the result!
 
@@ -206,35 +197,27 @@ any( is.na(durham_data$Value) )
 
 ### DATA FORMAT
 
-Now it's time to get the data ready for visualizations. 
+JB to add comments..............
 
 ```{r}
-# Let's select just a few columns of data using the "select" function. 
-D1 <- durham_data %>%
-  dplyr::select(Station.Name, Date.Time, Parameter, Value) 
-
-# Now let's filter for distinct rows. We can do this first by grouping by Name and Date. 
-# Put simply, R will basically take all the rows from the same date, then look at rows with the same Station.Name, and finally look for duplicates and remove. 
-D2<-D1 %>%
+durham_data_wide <- durham_data %>%
+  dplyr::select(Station.Name, Date.Time, Parameter, Value) %>%
   group_by(Station.Name, Date.Time) %>%
-  distinct(Station.Name, Date.Time, Parameter, .keep_all=TRUE) 
-
-# Next we are going to make the dataset "wider". Transforming the dataset.
-D3<-D2%>%
-  pivot_wider(names_from=Parameter, values_from=Value) 
-
-# And we will finish by cleaning it up
-durham_data_wide<-D3 %>% 
+  distinct(Station.Name, Date.Time, Parameter, .keep_all=TRUE) %>%
+  pivot_wider(names_from=Parameter, values_from=Value) %>% 
   mutate(Date = as.Date(Date.Time, format="%m/%d/%y"),
          Year = year(Date),
          Date = as.POSIXct.Date(Date)) %>%
   relocate(Date, Year, .after=Date.Time) %>%
   ungroup()
 
-# Remove D1, D2, and D3 since durham_data_wide is all we really want 
-rm(D1, D2, D3)
-
 ```
+
+
+
+
+
+
 
 
 # SECTION 04: Visualization and Analysis
@@ -244,128 +227,87 @@ Now let's visualize some of this data! Through visualizations, we can take compl
 ### Time Series Plots and Analysis
 Starting with the basics, we can think about this dataset as a time series and plot a given analyte against time. 
 
-What analytes exist? Well they are the names of the columns. Let's look at their names
-```{r}
-colnames(durham_data_wide)
-```
-
-
-Let's see how concentrations of calcium changes over time. We can color the points based on the site where the sample was taken.
+Let's see how concentrations of X changes over time. We can color the points based on the site where the sample was taken.
 
 ```{r}
+# JB TO INSERT CODE
 
 ggplot() +
-  geom_point(data=durham_data_wide, mapping=aes(x=Date, y=Calcium, color=Station.Name)) +
+  geom_point(data=durham_data_wide, mapping=aes(x=Date, y=Calcium)) +
   theme_classic()
 
 
 ```
 
-Using similar code to above, choose two different variables and see how they compare to one another! 
-
-Hint: You can simply change the x-axis from "Date" to your variable of choosing.
-```{r}
-# INSERT YOUR CODE HERE
-
-
-```
-
-
-
-Cool, we can see how concentration varies overtime, but it's hard to tell how variation throughout the year differs between sites. So let's look at a boxplot of this data!
+Cool, we can see how the concentration varies overtime, but it's hard to tell how variation throughout the year differs between sites. So let's look at a boxplot of this data!
 
 ```{r}
 
-ggplot(
-  data=durham_data_wide, aes(x=Station.Name, y=Calcium)) +
-  geom_boxplot()
+ggplot(data=durham_data_wide, mapping=aes(x=Date, y=Calcium, color=Station.Name,
+                                         group=Station.Name)) +
+  geom_point() + geom_line() +
+  scale_x_datetime(date_breaks="1 year", date_labels="%Y") +
+  theme_classic()
   
+
 ```
 
 Let's get fancy and separate this out by year. Maybe there's a difference between years?
 
 ```{r}
 
-ggplot(
-  data=durham_data_wide, aes(x=Station.Name, y=Calcium)) +
-  geom_boxplot() +
-  facet_wrap(~Year)
-  
+ggplot(data=durham_data_wide, mapping=aes(x=Station.Name, y=Calcium, fill=Station.Name)) +
+  geom_boxplot() + 
+  theme_classic() #+
+  # facet_wrap(~Year)
+
+
+
 ```
-
-Ah shoot the graph is a little messy, let's clean it up
-```{r}
-
-ggplot(
-  data=durham_data_wide, aes(x=Station.Name, y=Calcium)) +
-  geom_boxplot() +
-  facet_wrap(~Year) +
-  theme_classic()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-  
-  
-```
-
 Try doing the same visualizations now, but with a different variable. Make sure you use the exact name of the variable as it is found in the dataset!
 
-```{r}
-# INSERT YOUR CODE HERE!
+
+### Exploring What Drives Variation Between Sites
+
+Why, you might ask, is there variation between the sites? What might be causing that? Let's explore that further with a new dataset! This is a great opportunity to practice loading in the dataset and then doing a few new visualizations. We made it easier on you by cleaning up the dataset, but still check it out to make sure there aren't any quirks that will harm your work.
+
+A note about this dataset: This second dataset is a sampling blitz of ~34 sites in the same stream, conducted seasonally at 3 different points. There are strengths (and weaknesses) to each dataset. Durham's dataset gives us many years (weekly to monthly samples) but only at a few sites. Whereas the Synoptic dataset gives us many sites (~34!) but only at 3 points in time (different seasons).
 
 
-
-```
-
-
-### Exploring a Federal Dataset
-
-It just so happens that the City of Durham isn't the only one sampling Ellerbe Creek! We also have the US Geological Survey (USGS), which has a bunch of sensors deployed in streams and rivers nationally, and two in Ellerbe Creek. 
-
-Let's explore what they have, using USGS' R package (dataRetrieval) to download and view the data.
-
-First, let's introduce you to the wonderful world of CRAN. Every package will usually create a helpful documentation outlining every function in the package. It will include a list of every function, and a help page for each (usually with examples). The dataRetrieval documentation can be [found here](https://cran.r-project.org/web/packages/dataRetrieval/dataRetrieval.pdf).
 
 ``` {r}
-# Look for all sites in NC that have measures for mean daily Discharge, cubic feet per second (code = 00060)
-siteListDischarge <- whatNWISsites(stateCd="NC",parameterCd="00061") %>% 
-  filter(str_detect(station_nm, "ELLERBE")) # Filter for sites that are for Ellerbe Creek
+# Do this for each dataset
+file.name <- "synoptic_data_tutorial_version.csv"
+file <- file.path(data.dir, file.name)
+synoptic_data <- read.csv(file)
 
-head(siteListDischarge)
-```
-
-Sweet! Let's grab the site near Club Boulevard and Gorman. The first is upstream of the second. Based on this, which would you expect to have a higher flow? Let's see if you are right!
-
-First, load in the data
-```{r}
-siteNos <- c("0208675010", "02086849")
-pCode <- "00060"
-
-Discharge_Data <- readNWISdv(siteNos, pCode, "2005-01-01","2021-12-31")
+# Check it out, see if there's any weird quirks that need to be cleaned!
 
 ```
 
+Okay lets try some simple, but cool, statistics. There are two ions that were measured in this dataset that might be familiar: Na and Cl. That's table salt! Turns out it is also what we put on our roads in the winter to de-ice. That said, perhaps the concentrations of both maybe are closely coorelated since they come from the same source? Let's find out! 
 
-Now let's take a look!
-```{r}
+```{r correlations}
+# Let's calculate the coorelation between Na and Cl. The closer to 1, the higher the coorelation. 0 is no coorelation.
 
-ggplot() +
-  geom_point(data=Discharge_Data, mapping=aes(x=Date, y=X_00060_00003, color=site_no)) +
-  theme_classic() +
-  labs(y="Average Daily Discharge (ft^3/sec)")
+# cor(data_wide, Calcium, Conductivity)
+#GGally::ggpairs(data_wide %>% dplyr::select(Calcium, Conductivity, Copper))
 
+# JB TO INSERT CODE
+
+# Now let's visualize it! Is it well coorelated across values? Maybe it is closely coorelated for smaller values vs. large values; or maybe it doesn't matter the concentration. Let's find out.
+
+# JB TO INSERT CODE 
 
 ```
 
-Yikes that is messy. Maybe we should zoom into one year, and then replace the dots with lines
-```{r}
-# Filter data
-Discharge_Data_2020<-Discharge_Data %>% 
-  filter(Date > "2020-01-01" & Date < "2020-12-31")
+Now explore it for yourself for other compounds! 
 
-# Plot data
-ggplot() +
-  geom_line(data=Discharge_Data_2020, mapping=aes(x=Date, y=X_00060_00003, color=site_no)) +
-  theme_classic() +
-  labs(y="Average Daily Discharge (ft^3/sec)")
+While you are at it, you could also start to explore some other measures taken alongside this dataset. You'll see all the lovely chemistry data, but there is also socioeconomic data. Is there a coorelation between the density of roads and Na & Cl (since that's probably the main source of these salts)? What other hypotheses do you have? Check out this site for some ideas :D (INSERT LINK TO DATA+ SITE, PARAMATER PAGE).
+
+```{r}
+# Try doing the same visualizations now, but with different variables. Make sure you use the exact name of the variable as it is found in the dataset!
+
 
 ```
 
