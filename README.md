@@ -25,4 +25,4 @@ In **Section 4: Visualization and Analysis**, students will lead their own inves
 Finally, in **Section 5: Conclusion**, we have students summarize their findings and hypothesize reasons behind the relationships they have uncovered. Finally, we briefly cover statistical tools that could be used to further analyze these data, and propose the question of effort and funding, and why certain contaminants are measured for water quality and the limitations of grab samples.  
 
 ## Get Started!
-You can view the main tutorial on RPubs here: **https://rpubs.com/margaret-swift/ellerbe**
+You can view the main tutorial on RPubs here: **https://rpubs.com/margaret-swift/ellerbe-creek**
