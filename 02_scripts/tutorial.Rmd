@@ -42,10 +42,11 @@ Notice that we are defining various variables. The following `a <- 3` means that
 # This tells R to look for the folders and then giving them a name
 data.dir <- "../01_data" # This folder has all the data
 meta.dir <- "../00_meta" # This folder has all the meta data
+file.name <- file.path(data.dir, "durham_data_tutorial_version.csv")# Finds file name
 
-# Do this for each dataset, to load it in
-test<-file.path(data.dir, "durham_data_tutorial_version.csv") %>% # Finds file name
-  read.csv() # Reads it into R
+# Read dataset
+durham_data <- read.csv(file.name) 
+
 ```
 
 If you are new to R, maybe you have never seen the following before: %>%. This is called piping and is a powerful way to simplify your code and make it easier to read. Here's a wonderful [tutorial](https://medium.com/the-codehub/beginners-guide-to-piping-data-in-r-444054cbe999).
@@ -82,12 +83,12 @@ Sometimes, inappropriate metadata is stored within a .csv file. CSV, or comma-se
 ```{r fix metadurham_data}
 
 # load the metadata (extra data at the top of the file) separately using "readLines"
-meta <- readLines( file, n=10) # the metadata stops on row 10
+meta <- readLines( file.name, n=10) # the metadata stops on row 10
 meta <- paste( gsub(',', '', meta), collapse="\n") #remove errant commas
 print(meta)
 
 # now load the durham_data
-durham_data <- read.csv(file, skip=12, row.names=NULL) #durham_data is on row 12+
+durham_data <- read.csv(file.name, skip=12, row.names=NULL) #durham_data is on row 12+
 head(durham_data)
 ```
 
@@ -95,8 +96,7 @@ Now we have the durham_data we need saved in 'durham_data', and the metadurham_d
 
 ```{r save metadurham_data}
 
-meta.file.name <- 'metadurham_data.txt'
-meta.file <- file.path(meta.dir, file.name)
+meta.file <- file.path(meta.dir, 'metadurham_data.txt')
 write.table(meta, file=meta.file, row.names=FALSE, col.names=FALSE)
 
 ```
@@ -111,43 +111,39 @@ Now we are ready to look at the real data! It can be helpful at first to look at
 
 ```{r explore durham_data with multiple spellings}
 sky_condition<-durham_data %>% 
-<<<<<<< HEAD
-  group_by(Sky.Condition) %>% # group the data so all like things in "Sky.Condition" are put together
-  count() %>% # counts the number of occurrences for a given type of "Sky Condition" 
-  arrange(desc(n)) # arranges the rows by highest to lowest value of "n"
-=======
   # group the data so all like things in "Sky.Condition" are put together
   group_by(Sky.Condition) %>% 
   # count the number of occurances for a given type of "Sky Condition" 
   count() %>% 
   # arrange the rows by highest to lowest value of "n"
   arrange(desc(n)) 
->>>>>>> f8df9e8960052e79a71b3463023d9fc324c5c7df
 
 print(sky_condition) # shows the result!
 
 ```
 
-Ah, it looks like somebody had some inconsistencies with spellings. 
+Ah, it looks like somebody had some inconsistencies with spellings. Let's deal with some of those by making everything lowercase, then substituting some spelling fixes:
 
 ```{r}
 
-# First, make everything in the column lowercase 'tolower()' to make your life easier
-
 durham_data <- durham_data %>%
-  mutate(Sky.Condition = tolower( Sky.Condition ))
+  # First, make everything in the column lowercase with 'tolower()' 
+  mutate(Sky.Condition = tolower( Sky.Condition )) %>%
+  # Next, fix the spelling of "sunny". We use 'gsub(pattern, replacement, searchlist)' 
+  # to replace words or phrases. Modify this code to fix the other misspelling!
+  mutate(Sky.Condition = gsub("suny", "sunny", Sky.Condition)) %>%
+  mutate(Sky.Condition = gsub("pattern", "replacement", Sky.Condition))
 
 sort( unique( durham_data$Sky.Condition ) )
 
-durham_data <- durham_data %>%
-  mutate(Sky.Condition = tolower( Sky.Condition ))
 
 ```
 
 
-
 ### DUPLICATE durham_data
  
+As you may have noticed from your initial exploration of the data, some rows are duplicated. Dealing with these will be a little tricky, so let's break it into steps. First, we pull out all the duplicates and save them in a variable called `dupes`.
+
 ```{r find duplicates}
 
 # find rows with "duplicate" in the comments, then create a new durham_data frame just with those.
@@ -157,7 +153,7 @@ head( dupes )
 
 ```
 
-Normally, you could just get rid of duplicates using the function distinct(). distinct() simply drops the second row that is duplicated, however. Take a look at some of these values in 'dupes' -- they're not the same! When looking at your own data, you need to make decisions on how to deal with duplicate data. For now, we've decided to take the average of the two values. If you want to use just the first value, distinct() is fine; otherwise, here's how to replace duplicate values with the averages:
+Normally, you could just get rid of duplicates using the function `distinct()`. `distinct()` simply drops the second row that is duplicated, however. Take a look at some of these values in `dupes` -- they're not the same! When looking at your own data, you need to make decisions on how to deal with duplicate data. For now, we've decided to take the average of the two values. If you want to use just the first value, `distinct()` is fine; otherwise, here's how to replace duplicate values with the averages:
 
 ```{r}
 
@@ -197,10 +193,15 @@ head(durham_data)
 
 ### MISSING DATA
 
+Sometimes, data is just plain missing. These data aren't always an issue, but it's good to know where the missing data is. You can check that out using `summary()` or `is.na()`; be mindful if you're doing counts of rows or other things that would require removing data that is represented as `NA`, or missing. The function `which()` can tell you which rows have missing data, and removing them is a cinch. Just be sure to save that data frame as something other than your original, since once you remove rows you'll have to run your code again to get them back!
+
 ```{r}
 summary( durham_data$Value )
 any( is.na(durham_data$Value) )
+which( is.na(durham_data$Value) )
 
+inx.rm <- which( is.na(durham_data$Value) )
+durham_data_no_na <- durham_data[-inx.rm,]
 ```
 
 

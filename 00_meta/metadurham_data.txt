@@ -1,0 +1,10 @@
+"Disclaimer: Although Stormwater Services makes every effort to ensure data quality in the monitoring program errors do arise and may not be identified at the time the data was uploaded to this database.  The City of Durham does not assume any liability associated with the use of these data and is not obligated to notify parties of modifications or changes to the database.
+
+Query Results: 
+Name:EL10.7EC-EL1.9EC-EL5.0EC-EL5.5GC-EL5.6EC-EL7.1EC-EL7.1SEC-EL7.6SECT-EL7.9EC-EL8.1GC-EL8.2EC-EL8.5SEC-EL8.6SECUT-EL9.9EC-EL-Englewood-EL-Knox 
+Medium:Water
+Parameters: all 
+Project: Ambient
+Time Period:2016-05-02 ~ 2022-05-02
+Data was downloaded on May 23 2022 11:41 am
+The data contains the QA code. "
