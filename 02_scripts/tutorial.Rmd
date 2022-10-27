@@ -373,3 +373,7 @@ ggplot() +
 
 
 # SECTION 05: Conclusion
+
+This is only the start of all the wonderful things you can do in R! Please reach out to Jonny if you'd like more tutorials to dive deeper into the R world of fun.
+
+
