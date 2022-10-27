@@ -315,7 +315,7 @@ Try doing the same visualizations now, but with a different variable. Make sure 
 ```
 
 
-### Exploring a Federal Dataset
+# SECTION 05: Exploring a Federal Dataset
 
 It just so happens that the City of Durham isn't the only one sampling Ellerbe Creek! We also have the US Geological Survey (USGS), which has a bunch of sensors deployed in streams and rivers nationally, and two in Ellerbe Creek. 
 
@@ -325,36 +325,112 @@ First, let's introduce you to the wonderful world of CRAN. Every package will us
 
 ``` {r}
 # Look for all sites in NC that have measures for mean daily Discharge, cubic feet per second (code = 00060)
-siteListDischarge <- whatNWISsites(stateCd="NC",parameterCd="00061") %>% 
+siteListDischarge <- whatNWISsites(stateCd="NC",parameterCd="00060") %>% 
   filter(str_detect(station_nm, "ELLERBE")) # Filter for sites that are for Ellerbe Creek
 
 head(siteListDischarge)
 ```
 
-Sweet! Let's grab the site near Club Boulevard and Gorman. The first is upstream of the second. Based on this, which would you expect to have a higher flow? Let's see if you are right!
+## Site Search in NC
 
-First, load in the data
+Let's start by looking for all sites in NC that have measures for mean daily Discharge, cubic feet per second (code = 00060).
+
+``` {r}
+siteListDischarge <- whatNWISsites(stateCd="NC",parameterCd="00060") %>% 
+  filter(str_detect(station_nm, "ELLERBE")) # Filter for sites that are for Ellerbe Creek
+
+head(siteListDischarge)
+```
+
+## Download and view data from Ellerbe Creek, in Durham, NC
+
+Sweet! Okay now let's look at two sites in Ellerbe Creek. These are sites with stream gauges, thus lots of data. They are the sites near Club Boulevard (Durham,NC) and Gorman, NC. 
+
+Let's start by exploring what data is available.
+
 ```{r}
-siteNos <- c("0208675010", "02086849")
+Club_Code<-"0208675010"
+Gorman_Code<-"02086849"
+
+siteNos<-c(Club_Code, Gorman_Code)
+
+availableData <- whatNWISdata(siteNumber = siteNos)
+
+```
+
+## View other parameters
+
+Turns out that it isn't just flow data that is available through dataRetrevial. Let's see the full list of possible parameters (this will take a minute to load). 
+
+```{r}
+# This will take a minute to load
+pcode <- readNWISpCode("all")
+
+head(pcode)
+
+# See how many parameters there are
+pcode %>% count()
+```
+
+Let's figure out what each of those parameters are for our sites!
+
+```{r}
+parameters_at_sites<-availableData %>% 
+  select(site_no, station_nm, parm_cd, begin_date, end_date, count_nu) %>% 
+  na.omit() %>% 
+  rename(parameter_cd = parm_cd) %>% 
+  left_join(pcode)
+  
+parameters_at_sites %>% 
+  arrange(desc(count_nu)) %>% 
+  mutate(count_rank=row_number()) %>% 
+  ggplot(aes(x= count_rank, y=count_nu, shape=station_nm, color=station_nm)) +
+  geom_point()+
+  facet_wrap(~station_nm) +
+  scale_y_log10() +
+  theme_classic() + 
+  theme(legend.position = "bottom")
+  
+```
+
+Turns out a vast majority of the data collected was only collected on a few days of sampling. We want to look at temporal trends, so let's see what is regularly monitored here.
+
+```{r}
+parameters_at_sites %>% 
+  filter(count_nu >100) %>% 
+  group_by(station_nm, parameter_cd) %>% 
+  count()
+```
+
+Looks like it is parameter code 00060, what is that? Ah ha! It's discharge. Makes sense since it is a gage :D
+
+### Explore Discharge data
+
+The first site (Club) is upstream of the second. Based on this, which would you expect to have a higher flow? Let's verify by loading in and viewing some data.
+
+```{r}
 pCode <- "00060"
 
 Discharge_Data <- readNWISdv(siteNos, pCode, "2005-01-01","2021-12-31")
 
 ```
 
+### View data
 
-Now let's take a look!
 ```{r}
 
 ggplot() +
   geom_point(data=Discharge_Data, mapping=aes(x=Date, y=X_00060_00003, color=site_no)) +
   theme_classic() +
-  labs(y="Average Daily Discharge (ft^3/sec)")
+  labs(y="Average Daily Discharge (ft^3/sec)") +
+  facet_wrap(~site_no)+
+  theme(legend.position = "bottom")
 
 
 ```
 
-Yikes that is messy. Maybe we should zoom into one year, and then replace the dots with lines
+Yikes that is messy. Maybe we should zoom into one year, and then replace with lines and then overlay.
+
 ```{r}
 # Filter data
 Discharge_Data_2020<-Discharge_Data %>% 
@@ -368,6 +444,15 @@ ggplot() +
 
 ```
 
+# You try now!
+
+Now you give it a try. Maybe select a different site, or a different measure. 
+
+If you want to get even deeper, check out [this tutorial](https://owi.usgs.gov/R/dataRetrieval.html#1) from USGS that outlines even more things that you can do with this package. 
+
+```{r}
+
+```
 
 
 # SECTION 05: Conclusion
