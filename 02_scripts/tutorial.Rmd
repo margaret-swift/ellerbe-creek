@@ -68,9 +68,7 @@ R is open source. That means it is free and will likely always be! That means an
 
 Now, back to the dataset at hand. Did you know that you can view data in R just like you do in Excel? Using the `View()` command, you can view the dataset like a spreadsheet. The `head()` function will show you just the top of the table (so it isn't too overwhelming). Try it out:
 
-```{r view durham_data, eval=FALSE}
-
-print(durham_data)
+```{r view durham_data}
 
 head(durham_data)
 
