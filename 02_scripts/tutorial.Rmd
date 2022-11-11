@@ -12,10 +12,19 @@ output:
 
 Welcome to the Ellerbe Creek Cleanup Tutorial! To download this file and follow along, head over to our [GitHub page](https://github.com/margaret-swift/ellerbe-creek)
 
-# SECTION 01: WORKFLOW
+# SECTION 01: Why R?
+
+### Reproducibility
+By working in R, we have a record of every change or calculation we did on a dataset. This is very important so your work can be repeated by others. Also so you can repeat it if you find you accidentally made a mistake!
+
+### Open Source = Accessible
+R is open source. That means it is free and will likely always be! That means anyone can use your code and run it without paying anything for a software. This makes your work accessible to many.
+
+
+# SECTION 02: WORKFLOW
 
 ### Set up your environment
-Some basics: To run a block of code, click the green arrow in the top right of the gray box. 
+Some basics: To run a block of code, click the green arrow in the top right of the gray box.
 
 Before we start, you need to set up your "environment." This involves installing and loading any libraries that you need to run the code for this module. Libraries basically store a bunch of really useful functions that other people have developed to make your life easier. You can both download and load packages with the `p_load` function! 
 
@@ -51,18 +60,8 @@ durham_data <- read.csv(file.name)
 
 If you are new to R, maybe you have never seen the following before: %>%. This is called piping and is a powerful way to simplify your code and make it easier to read. Here's a wonderful [tutorial](https://medium.com/the-codehub/beginners-guide-to-piping-data-in-r-444054cbe999).
 
-# SECTION 02: Why R?
-
-### Reproducibility
-By working in R, we have a record of every change or calculation we did on a dataset. This is very important so your work can be repeated by others. Also so you can repeat it if you find you accidentally made a mistake!
-
-### Open Source = Accessible
-R is open source. That means it is free and will likely always be! That means anyone can use your code and run it without paying anything for a software. This makes your work accessible to many.
-
-
 
 # SECTION 03: Cleaning Up
-
 
 ### Open the durham_data and take a look
 
@@ -102,7 +101,6 @@ write.table(meta, file=meta.file, row.names=FALSE, col.names=FALSE)
 
 For data cleaning, we're going to cover three main issues: (1) Inconsistent Data Entry, (2) Duplicate Rows, and (3) Missing Data.
 
-
 ### INCONSISTENT DATA ENTRY
 
 Now we are ready to look at the real data! It can be helpful at first to look at the "unique" data values for each column, to get a sense of what you're working with. Let's start with "Sky.Condition"
@@ -133,7 +131,6 @@ durham_data <- durham_data %>%
   mutate(Sky.Condition = gsub("pattern", "replacement", Sky.Condition))
 
 sort( unique( durham_data$Sky.Condition ) )
-
 
 ```
 
@@ -186,7 +183,6 @@ durham_data <- bind_rows(durham_data, dupes) %>%
 
 head(durham_data)
 ```
-
 
 
 ### MISSING DATA
@@ -244,6 +240,7 @@ Now let's visualize some of this data! Through visualizations, we can take compl
 Starting with the basics, we can think about this dataset as a time series and plot a given analyte against time. 
 
 What analytes exist? Well they are the names of the columns. Let's look at their names
+
 ```{r}
 colnames(durham_data_wide)
 ```
@@ -268,7 +265,6 @@ Hint: You can simply change the x-axis from "Date" to your variable of choosing.
 
 
 ```
-
 
 
 Cool, we can see how concentration varies overtime, but it's hard to tell how variation throughout the year differs between sites. So let's look at a boxplot of this data!
@@ -402,7 +398,7 @@ parameters_at_sites %>%
   count()
 ```
 
-Looks like it is parameter code 00060, what is that? Ah ha! It's discharge. Makes sense since it is a gage :D
+Looks like it is parameter code 00060, what is that? Ah ha! It's discharge - the total amount of water moving through the stream. Makes sense since it is a USGS gauge :D
 
 ### Explore Discharge data
 
@@ -425,7 +421,6 @@ ggplot() +
   labs(y="Average Daily Discharge (ft^3/sec)") +
   facet_wrap(~site_no)+
   theme(legend.position = "bottom")
-
 
 ```
 
@@ -457,6 +452,5 @@ If you want to get even deeper, check out [this tutorial](https://owi.usgs.gov/R
 
 # SECTION 05: Conclusion
 
-This is only the start of all the wonderful things you can do in R! Please reach out to Jonny if you'd like more tutorials to dive deeper into the R world of fun.
-
+This is only the start of all the wonderful things you can do in R! Please reach out to Jonny or Maggie if you'd like more tutorials to dive deeper into the R world of fun.
 
